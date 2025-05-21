@@ -1,12 +1,6 @@
-import React from "react";
-import Chatbot from "./components/Chatbot";
+import React from 'react';
+import ChatContainer from './components/chat/ChatContainer';
 
-function App() {
-  return (
-    <div className="min-h-screen bg-gray-100">
-      <Chatbot />
-    </div>
-  );
+export default function App() {
+  return <ChatContainer />;
 }
-
-export default App;
