@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function Background() {
-  return /*( //REMINDER TO ADD SOME KINDA COLOUR and FIX (OPTIONAL)
+  return ( //REMINDER TO ADD SOME KINDA COLOUR and FIX (OPTIONAL)
     <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
       {Array.from({ length: 10 }).map((_, i) => {
         const size = Math.floor(Math.random() * 80) + 20;
@@ -25,5 +25,4 @@ export default function Background() {
       })}
     </div>
   );
-*/
 }
