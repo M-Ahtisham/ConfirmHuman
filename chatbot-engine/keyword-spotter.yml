@@ -1,0 +1,13 @@
+ask:
+  - Hello, how can i help you today?
+  - How is it going, how may i help?
+  - Good morning, hope you are having a good day. How may i assist?
+  - Good afternoon, how may i help you?
+
+fallback:
+  - I'm not sure about that, could you please rephrase?
+  - I am not sure what you mean, could you say that differently?
+
+decribe:
+  - This room is available Tommorow, from 8am to 10am
+
