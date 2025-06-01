@@ -1,10 +1,10 @@
-const MAX_FALLBACK_ATTEMPTS = 3; // we need to have another meeting to confirm how many
+const MAX_FALLBACK_ATTEMPTS = 3; // we need to have another meeting to confirm how many 
 const userStates = {};
 
 function detectIntent(message) {
     const lowered = message.toLowerCase();
 
-    if (lowered.includes("room")) return "book_room";
+    if (lowered.includes("room")) return "book_room"; // 
     if (lowered.includes("time")) return "show_time";
 
     return null;
@@ -23,7 +23,20 @@ function handleMessage(userId, message) {
             userStates[userId].fallbackCount = 0;
             return { response: "I'm having trouble understanding. Let's start over.", restart: true };
         } else {
-            return { response: "I didn’t understand that. Can you rephrase it?" };
+            return { response: "I didn’t understand that. Can you rephrase it or ask about a specific room or timeslot?" };
         }
     }
+
+    userStates[userId].fallbackCount = 0;
+
+    switch (intent) { // need to double check if work later
+        case "book_room":
+            return { response: "What room would you like to reserve?" };
+        case "":
+            return { response: "Here is the available times: " };
+        default:
+            return { response: "Okay." };
+    }
 }
+
+module.exports = { handleMessage };
