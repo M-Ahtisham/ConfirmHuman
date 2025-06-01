@@ -1,5 +1,3 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
 /node_modules
 /.pnp
@@ -10,17 +8,39 @@
 
 # production
 /build
+/dist
+/out
+.next
+.cache
 
 # misc
 .DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env
+.env.*
+*.pem
+*.key
+*.crt
+*.p12
+*.jks
+*.keystore
+*.token
+*.secret
+*.credentials
+.azure
+azure.json
+*.azure*
 
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-#Virtual Environment
+# editor & system
+.vscode/
+.idea/
+*.swp
+*.tmp
+*.bak
+
+# virtual environment
 .venv
+
