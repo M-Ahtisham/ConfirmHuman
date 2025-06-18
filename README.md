@@ -119,7 +119,7 @@ ConfirmHuman/ (This is the folder we have in our systems could differ on differe
 │   └── socrates/
 │       └── intentHandler.js
 ├── chatbot-engine/
-│   ├── keyword-spotter.yml
+│   ├── keyword-spotter.json
 │   └── README.md
 ├── chatbot-frontend/
 │   ├── src/

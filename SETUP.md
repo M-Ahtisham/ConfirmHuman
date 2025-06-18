@@ -21,7 +21,7 @@ chatbot-project/
 │   └── socrates/
 │       └── intentHandler.js
 ├── chatbot-engine/
-│   ├── keyword-spotter.yml
+│   ├── keyword-spotter.json
 │   └── README.md
 ├── chatbot-frontend/
 │   ├── src/
@@ -148,15 +148,15 @@ npm run dev
 - Check browser console for error messages
 
 **Chatbot Not Responding**
-- Check the keyword-spotter.yml configuration
+- Check the keyword-spotter.json configuration
 - Verify that intentHandler.js is working correctly
 - Look at the backend terminal for error messages
 
 ## Configuration Files
 
-### keyword-spotter.yml
+### keyword-spotter.json
 - Contains the chatbot's intent recognition patterns
-- Located in `chatbot-engine/keyword-spotter.yml`
+- Located in `chatbot-engine/keyword-spotter.json`
 - Modify this file to add new intents and responses
 
 ### Frontend Configuration
@@ -167,7 +167,7 @@ npm run dev
 ## Development Notes
 
 ### Adding New Features
-1. **New Intents**: Add patterns to `keyword-spotter.yml`
+1. **New Intents**: Add patterns to `keyword-spotter.json`
 2. **New Responses**: Update `intentHandler.js`
 3. **UI Changes**: Modify React components in `src/` folder
 4. **Styling**: Use Tailwind CSS classes or add custom CSS
@@ -187,7 +187,7 @@ npm run dev
 
 - **Backend Code**: `chatbot-backend/`
 - **Frontend Code**: `chatbot-frontend/src/`
-- **Intent Configuration**: `chatbot-engine/keyword-spotter.yml`
+- **Intent Configuration**: `chatbot-engine/keyword-spotter.json`
 - **Project Documentation**: `README.md`
 - **Team Contributions**: `Contributions.xlsx`
 - **Deployment URL**: `url.txt` (for Azure deployment)

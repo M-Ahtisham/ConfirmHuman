@@ -1,0 +1,35 @@
+{
+  "start": {
+    "key": [
+      "hello",
+      "hi",
+      "good morning",
+      "good afternoon"
+    ],
+    "response": [
+      "Hello, how can I help you today?",
+      "How is it going, how may I help?",
+      "Good morning, hope you are having a good day. How may I assist?",
+      "Good afternoon, how may I help you?"
+    ]
+  },
+  "fallback_soft": [
+    "I'm not sure about that, could you please rephrase?",
+    "I am not sure what you mean, could you say that differently?"
+  ],
+  "check_availability": {
+    "key": [
+      "available",
+      "is free",
+      "is room free",
+      "check availability"
+    ],
+    "response": [
+      "Yes it is available",
+      "No it is not available"
+    ]
+  },
+  "describe": [
+    "This room is available Tomorrow, from 8am to 10am"
+  ]
+}
