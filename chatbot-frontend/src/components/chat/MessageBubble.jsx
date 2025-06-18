@@ -7,7 +7,7 @@ export default function MessageBubble({ from, type, text }) {
     : 'bg-gray-200 text-black self-start';
 
   return (
-    <div className={`max-w-[75%] p-3 rounded-bubble animate-in ${bubbleStyle}`}>
+    <div className={`max-w-[70%] p-3 rounded-bubble animate-in ${bubbleStyle}`}>
       {type === 'text' && <p className="whitespace-pre-wrap">{text}</p>}
     </div>
   );
