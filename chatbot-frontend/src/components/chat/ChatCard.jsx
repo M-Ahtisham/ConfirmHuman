@@ -1,19 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { io } from 'socket.io-client';
 import MessageList from './MessageList';
 
+const socket = io('http://localhost:3000');
 export default function ChatCard() {
   const [messages, setMessages] = useState([
     { from: 'bot', type: 'text', text: 'Hi! How can I help you today?' },
   ]);
   const [input, setInput] = useState('');
 
+  useEffect(() => {
+    socket.on('bot_message', (msg) => {
+      setMessages((prev) => [...prev, { from: 'bot', type: 'text', text: msg }]);
+    });
+    return () => socket.off('bot_message');
+  }, []);
+
   const sendMessage = () => {
     if (!input.trim()) return;
-    setMessages((prev) => [
-      ...prev,
-      { from: 'user', type: 'text', text: input },
-      { from: 'bot', type: 'text', text: "Thanks for your message!" },
-    ]);
+
+    const userMsg = input.trim();
+    setMessages((prev) => [...prev, { from: 'user', type: 'text', text: userMsg }]);
+    socket.emit('user_message', userMsg);
     setInput('');
   };
 

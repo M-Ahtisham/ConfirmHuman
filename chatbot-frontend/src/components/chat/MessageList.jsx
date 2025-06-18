@@ -11,7 +11,7 @@ export default function MessageList({ messages }) {
   }, [messages]);
 
   return (
-    <div className="flex-1 overflow-y-auto px-4 py-2 space-y-2 scrollbar-hidden">
+    <div className="flex-1 overflow-y-auto px-4 py-2 space-y-3 scrollbar-hidden">
       {messages.map((msg, idx) => (
         <MessageBubble key={idx} from={msg.from} type={msg.type} text={msg.text} />
       ))}
