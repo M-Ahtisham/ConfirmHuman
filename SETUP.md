@@ -55,6 +55,8 @@ chatbot-project/
 2. Install the required packages:
    ```bash
    npm install
+   npm init -y
+   npm install express socket.io cors
    ```
    This will install:
    - Express.js (web server)
@@ -69,6 +71,7 @@ chatbot-project/
 2. Install the required packages:
    ```bash
    npm install
+   npm install socket.io-client
    ```
    This will install:
    - React framework
