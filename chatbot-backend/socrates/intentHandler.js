@@ -1,42 +1,42 @@
-const MAX_FALLBACK_ATTEMPTS = 3; // we need to have another meeting to confirm how many 
-const userStates = {};
+const rooms = require('./rooms.json');
+const rules = require('./rules.json');
 
-function detectIntent(message) {
-    const lowered = message.toLowerCase();
+function intentHandler(message) {
+  const text = message.toLowerCase();
 
-    if (lowered.includes("room")) return "book_room"; // 
-    if (lowered.includes("time")) return "show_time";
+  if (text.includes('available') && text.includes('room')) {
+    const group = rooms.groupRooms.map(r =>
+      `${r.location}${r.hasWindow === false ? ' (no window)' : ''}`
+    ).join(', ');
 
-    return null;
+    const single = rooms.singleRooms.map(r => r.location).join(', ');
+
+    return `Available Rooms:\n• Group: ${group}\n• Single: ${single}`;
+  }
+
+  if (text.includes('rules')) {
+    return `Booking Rules:
+- Reservation: ${rules.reservation.withReservation.time} (${rules.reservation.withReservation.days.join(', ')})
+- Without reservation: ${rules.reservation.withoutReservation.mondayToThursday} (Mon–Thu), ${rules.reservation.withoutReservation.friday} (Fri)
+- Return Deadline: ${rules.reservation.returnDeadline}`;
+  }
+
+  if (text.includes('book')) {
+    return `Please tell me which room you'd like to book. Pickup is possible from 16:30–17:30.`;
+  }
+
+  if (text.includes('printer')) {
+    return `The multifunction printer is located in the ${rules.printer.location} and is named "${rules.printer.printerName}".`;
+  }
+
+  if (text.includes('emergency')) {
+    return `Emergency Info:
+- Phones: ${rules.emergency.emergencyPhoneLocation.join(', ')}
+- Call 110 (police) or 112 (fire)
+- ${rules.emergency.alarmProcedure}`;
+  }
+
+  return `I'm not sure I understood. Could you rephrase that?`;
 }
 
-function handleMessage(userId, message) {
-    if (!userStates[userId]) 
-        userStates[userId] = { fallbackCount: 0 };
-
-    const intent = detectIntent(message);
-
-    if (!intent) {
-        userStates[userId].fallbackCount += 1;
-
-        if (userStates[userId].fallbackCount >= MAX_FALLBACK_ATTEMPTS) {
-            userStates[userId].fallbackCount = 0;
-            return { response: "I'm having trouble understanding. Let's start over.", restart: true };
-        } else {
-            return { response: "I didn’t understand that. Can you rephrase it or ask about a specific room or timeslot?" };
-        }
-    }
-
-    userStates[userId].fallbackCount = 0;
-
-    switch (intent) { // need to double check if work later
-        case "book_room":
-            return { response: "What room would you like to reserve?" };
-        case "":
-            return { response: "Here is the available times: " };
-        default:
-            return { response: "Okay." };
-    }
-}
-
-module.exports = { handleMessage };
+module.exports = intentHandler;
