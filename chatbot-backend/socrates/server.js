@@ -14,16 +14,36 @@ const io = new Server(server, {
   }
 });
 
+// Store conversation states per user
+const userStates = new Map();
+
 io.on('connection', (socket) => {
   console.log('User connected:', socket.id);
 
+  // Initialize state for this user
+  userStates.set(socket.id, {
+    currentState: 'start',
+    context: {} // Can store additional conversation context here
+  });
+
   socket.on('user_message', (msg) => {
-    const reply = intentHandler(msg); 
-    socket.emit('bot_message', reply);
+    const userState = userStates.get(socket.id);
+    
+    // Get current state and pass to intent handler
+    const { response, newState } = intentHandler(msg, userState.currentState);
+    
+    // Update user's state
+    userState.currentState = newState;
+    userStates.set(socket.id, userState);
+    
+    // Send response to client
+    socket.emit('bot_message', response);
   });
 
   socket.on('disconnect', () => {
     console.log('User disconnected:', socket.id);
+    // Clean up user state
+    userStates.delete(socket.id);
   });
 });
 

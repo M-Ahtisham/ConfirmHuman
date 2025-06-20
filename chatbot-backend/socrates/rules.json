@@ -11,7 +11,7 @@
     },
     "pickupPeriod": "09:00 - 14:00",
     "earlyReturnNote": "Early-returned keys can be borrowed for remaining hours until 16:00 the same day.",
-    "returnDeadline": "Next weekday (Mon–Fri) at 16:00. Keys borrowed on Friday are due Monday at 16:00."
+    "returnDeadline": "Next weekday (Mon-Fri) at 16:00. Keys borrowed on Friday are due Monday at 16:00."
   },
   "printer": {
     "location": "stay/training room",
