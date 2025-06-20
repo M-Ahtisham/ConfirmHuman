@@ -1,35 +1,133 @@
 {
-  "start": {
-    "key": [
-      "hello",
-      "hi",
-      "good morning",
-      "good afternoon"
+  "states": {
+    "start": {
+      "keywords": ["hello", "hi", "hey", "good morning", "good afternoon"],
+      "responses": [
+        "Hello! Welcome to the university room booking system. How can I help you today?",
+        "Hi there! I can help you book study rooms. What would you like to do?",
+        "Good day! Would you like to check room availability or make a booking?"
+      ],
+      "transitions": {
+        "check_availability": ["available", "free", "check", "room"],
+        "make_booking": ["book", "reserve", "schedule"],
+        "room_info": ["describe", "tell me about", "what's in", "facilities"]
+      }
+    },
+    
+    "check_availability": {
+      "keywords": ["available", "free", "check", "room", "when", "time"],
+      "responses": [
+        "I can check room availability for you. Please tell me the date and time you're interested in.",
+        "Let me check room availability. What day and time do you need the room?"
+      ],
+      "transitions": {
+        "provide_date": ["today", "tomorrow", "monday", "tuesday", "wednesday", "thursday", "friday"],
+        "provide_time": ["morning", "afternoon", "evening", "8am", "9am", "10am", "1pm", "2pm", "3pm"],
+        "back_to_start": ["cancel", "nevermind", "start over"]
+      }
+    },
+    
+    "provide_date": {
+      "keywords": ["today", "tomorrow", "monday", "tuesday", "wednesday", "thursday", "friday", "weekend"],
+      "responses": [
+        "Got it. Now please tell me the time you need the room (e.g., 'morning', '2pm', etc.).",
+        "Understood. What time on {date} would you like to check?"
+      ],
+      "transitions": {
+        "provide_time": ["morning", "afternoon", "evening", "8am", "9am", "10am", "1pm", "2pm", "3pm"],
+        "back_to_start": ["cancel", "nevermind", "start over"]
+      }
+    },
+    
+    "provide_time": {
+      "keywords": ["morning", "afternoon", "evening", "8am", "9am", "10am", "1pm", "2pm", "3pm"],
+      "responses": [
+        "Checking availability for {time} on {date}...",
+        "Let me see what's available at {time} on {date}..."
+      ],
+      "transitions": {
+        "show_availability": ["yes", "ok", "check"],
+        "change_parameters": ["different time", "another day", "change"]
+      }
+    },
+    
+    "show_availability": {
+      "keywords": ["show", "results", "availability", "what's available"],
+      "responses": [
+        "Here are the available rooms for {time} on {date}: Room 101, Room 205, Study Pod 3.",
+        "Available rooms: {list_of_rooms}. Would you like to book one?"
+      ],
+      "transitions": {
+        "make_booking": ["book", "reserve", "yes"],
+        "new_search": ["different time", "another day"],
+        "back_to_start": ["no", "cancel"]
+      }
+    },
+    
+    "make_booking": {
+      "keywords": ["book", "reserve", "schedule", "take"],
+      "responses": [
+        "Which room would you like to book? Available options: {list_of_rooms}",
+        "Please specify the room number you want to reserve."
+      ],
+      "transitions": {
+        "confirm_booking": ["101", "205", "study pod", "room"],
+        "back_to_start": ["cancel", "nevermind"]
+      }
+    },
+    
+    "confirm_booking": {
+      "keywords": ["confirm", "yes", "book it", "proceed"],
+      "responses": [
+        "Booking confirmed! You have Room {room_number} on {date} at {time}.",
+        "Your reservation for {room_number} is complete. A confirmation has been sent to your email."
+      ],
+      "transitions": {
+        "end_conversation": ["thank you", "thanks", "done"],
+        "new_booking": ["book another", "different room"]
+      }
+    },
+    
+    "room_info": {
+      "keywords": ["describe", "tell me about", "what's in", "facilities", "equipment"],
+      "responses": [
+        "Our study rooms include tables, chairs, whiteboards, and power outlets. Some have projectors.",
+        "Study rooms vary in size from 4-person to 12-person capacity. All have WiFi and some have AV equipment."
+      ],
+      "transitions": {
+        "specific_room_info": ["room 101", "room 205", "study pod"],
+        "back_to_start": ["thanks", "ok", "got it"]
+      }
+    },
+    
+    "specific_room_info": {
+      "keywords": ["101", "205", "study pod", "large room"],
+      "responses": [
+        "Room {room_number} has capacity for {capacity} people and includes {equipment}.",
+        "{room_number} features: {features}. Would you like to book this room?"
+      ],
+      "transitions": {
+        "make_booking": ["yes", "book"],
+        "back_to_start": ["no", "other options"]
+      }
+    }
+  },
+  
+  "fallbacks": {
+    "soft": [
+      "I'm not sure I understand. Could you rephrase that?",
+      "I didn't quite get that. Could you say it differently?",
+      "I want to help you with room bookings. Could you try asking in another way?"
     ],
-    "response": [
-      "Hello, how can I help you today?",
-      "How is it going, how may I help?",
-      "Good morning, hope you are having a good day. How may I assist?",
-      "Good afternoon, how may I help you?"
+    "hard": [
+      "I'm having trouble understanding. Would you like to start over?",
+      "Let's try again. You can ask about room availability or make a booking."
     ]
   },
-  "fallback_soft": [
-    "I'm not sure about that, could you please rephrase?",
-    "I am not sure what you mean, could you say that differently?"
-  ],
-  "check_availability": {
-    "key": [
-      "available",
-      "is free",
-      "is room free",
-      "check availability"
-    ],
-    "response": [
-      "Yes it is available",
-      "No it is not available"
-    ]
-  },
-  "describe": [
-    "This room is available Tomorrow, from 8am to 10am"
-  ]
+  
+  "error_handling": {
+    "no_rooms_available": "Sorry, there are no rooms available for your selected time.",
+    "invalid_time": "Please specify a valid time between 8am and 9pm.",
+    "max_capacity": "That room is already at maximum capacity for your selected time."
+  }
 }

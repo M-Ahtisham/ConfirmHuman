@@ -1,42 +1,88 @@
-const rooms = require('./rooms.json');
-const rules = require('./rules.json');
+const keywords = require('./keyword-spotter.json');
 
-function intentHandler(message) {
+function intentHandler(message, currentState = 'start') {
   const text = message.toLowerCase();
+  const currentStateData = keywords.states[currentState] || keywords.states.start;
+  
+  // We check if we should use a fallback
+  let useFallback = true;
+  let matchedTransition = null;
+  let response = '';
 
-  if (text.includes('available') && text.includes('room')) {
-    const group = rooms.groupRooms.map(r =>
-      `${r.location}${r.hasWindow === false ? ' (no window)' : ''}`
-    ).join(', ');
-
-    const single = rooms.singleRooms.map(r => r.location).join(', ');
-
-    return `Available Rooms:\n• Group: ${group}\n• Single: ${single}`;
+  // First check state keywords (if they exist)
+  if (currentStateData.keywords) {
+    for (const keyword of currentStateData.keywords) {
+      if (text.includes(keyword)) {
+        useFallback = false;
+        break;
+      }
+    }
   }
 
-  if (text.includes('rules')) {
-    return `Booking Rules:
-- Reservation: ${rules.reservation.withReservation.time} (${rules.reservation.withReservation.days.join(', ')})
-- Without reservation: ${rules.reservation.withoutReservation.mondayToThursday} (Mon–Thu), ${rules.reservation.withoutReservation.friday} (Fri)
-- Return Deadline: ${rules.reservation.returnDeadline}`;
+  // Then check transitions (if keywords matched or state doesn't have keywords)
+  if (!useFallback || !currentStateData.keywords) {
+    if (currentStateData.transitions) {
+      for (const [transition, triggerWords] of Object.entries(currentStateData.transitions)) {
+        for (const word of triggerWords) {
+          if (text.includes(word)) {
+            useFallback = false;
+            matchedTransition = transition;
+            break;
+          }
+        }
+        if (matchedTransition) break;
+      }
+    }
   }
 
-  if (text.includes('book')) {
-    return `Please tell me which room you'd like to book. Pickup is possible from 16:30–17:30.`;
+  // Handle matched transition
+  if (!useFallback && matchedTransition) {
+    const nextState = matchedTransition;
+    const nextStateData = keywords.states[nextState];
+    
+    // Select random response from available options
+    const possibleResponses = nextStateData.responses || [];
+    response = possibleResponses.length > 0 
+      ? possibleResponses[Math.floor(Math.random() * possibleResponses.length)]
+      : '';
+    
+    return {
+      response,
+      newState: nextState
+    };
   }
 
-  if (text.includes('printer')) {
-    return `The multifunction printer is located in the ${rules.printer.location} and is named "${rules.printer.printerName}".`;
+  // Handle case where we're staying in current state (keywords matched but no transition)
+  if (!useFallback && !matchedTransition) {
+    const possibleResponses = currentStateData.responses || [];
+    response = possibleResponses.length > 0 
+      ? possibleResponses[Math.floor(Math.random() * possibleResponses.length)]
+      : '';
+    
+    return {
+      response,
+      newState: currentState
+    };
   }
 
-  if (text.includes('emergency')) {
-    return `Emergency Info:
-- Phones: ${rules.emergency.emergencyPhoneLocation.join(', ')}
-- Call 110 (police) or 112 (fire)
-- ${rules.emergency.alarmProcedure}`;
-  }
+  // Handle fallback cases
+  if (useFallback) {
+    // First try soft fallback
+    const fallbackResponses = keywords.fallbacks?.soft || [
+      "I'm not sure I understand. Could you rephrase that?",
+      "I didn't quite get that. Could you say it differently?"
+    ];
+    
+    response = fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)];
 
-  return `I'm not sure I understood. Could you rephrase that?`;
+    // If we've hit multiple fallbacks in a row, consider hard fallback
+    // (This would require tracking conversation history, not implemented here)
+    
+    return {
+      response,
+      newState: currentState
+    };
+  }
 }
 
 module.exports = intentHandler;
