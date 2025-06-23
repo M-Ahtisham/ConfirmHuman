@@ -9,6 +9,16 @@ function intentHandler(message, currentState = 'start') {
   let matchedTransition = null;
   let response = '';
 
+  // We check when the user is asking for a hint about the chatbot
+
+  if (text.includes('help') || text.includes('hint')) {
+    return {
+      response: currentStateData.hint || " #FALLBACK!# I can help you with room bookings. You can ask about availability or make a booking.", // Fallback if hint is missing
+      newState: currentState // Stay in current state
+    };
+  }
+
+
   // First check state keywords (if they exist)
   if (currentStateData.keywords) {
     for (const keyword of currentStateData.keywords) {
@@ -19,7 +29,7 @@ function intentHandler(message, currentState = 'start') {
     }
   }
 
-  // Then check transitions (if keywords matched or state doesn't have keywords)
+  // We then check transitions (if keywords matched or state doesn't have keywords)
   if (!useFallback || !currentStateData.keywords) {
     if (currentStateData.transitions) {
       for (const [transition, triggerWords] of Object.entries(currentStateData.transitions)) {
