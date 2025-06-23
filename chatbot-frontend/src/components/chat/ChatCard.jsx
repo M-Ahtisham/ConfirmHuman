@@ -5,7 +5,7 @@ import MessageList from './MessageList';
 const socket = io('http://localhost:3000');
 export default function ChatCard() {
   const [messages, setMessages] = useState([
-    { from: 'bot', type: 'text', text: 'Hi! How can I help you today?' },
+    { from: 'bot', type: 'text', text: 'Hi I am Socrates! How can I help you today?' },
   ]);
   const [input, setInput] = useState('');
 
