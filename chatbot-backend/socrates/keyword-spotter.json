@@ -2,6 +2,7 @@
   "states": {
     "start": {
       "keywords": ["hello", "hi", "hey", "good morning", "good afternoon"],
+      "hint": "Hint 1: You can ask about which rooms are available, or informations about the room",
       "responses": [
         "Hello! Welcome to the university room booking system. How can I help you today?",
         "Hi there! I can help you book study rooms. What would you like to do?",
@@ -16,6 +17,7 @@
     
     "check_availability": {
       "keywords": ["available", "free", "check", "room", "when", "time"],
+      "hint": "Hint 2: You can provide a date or a time like today, tomorrow, 10am, 3pm or just say nevermind to start again",
       "responses": [
         "I can check room availability for you. Please tell me the date and time you're interested in.",
         "Let me check room availability. What day and time do you need the room?"
@@ -29,6 +31,7 @@
     
     "provide_date": {
       "keywords": ["today", "tomorrow", "monday", "tuesday", "wednesday", "thursday", "friday", "weekend"],
+      "hint": "Hint 3: You provided the day already, now tell me the time you want it. something like 8am, 10am or 3pm",
       "responses": [
         "Got it. Now please tell me the time you need the room (e.g., 'morning', '2pm', etc.).",
         "Understood. What time on {date} would you like to check?"
@@ -41,6 +44,7 @@
     
     "provide_time": {
       "keywords": ["morning", "afternoon", "evening", "8am", "9am", "10am", "1pm", "2pm", "3pm"],
+      "hint": "Hint 4: I'll write this later ##### Stop here",
       "responses": [
         "Checking availability for {time} on {date}...",
         "Let me see what's available at {time} on {date}..."
