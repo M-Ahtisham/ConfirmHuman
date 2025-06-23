@@ -1,2 +1,4 @@
 tailwindcss version:
 npm install -D tailwindcss@3 postcss autoprefixer
+
+check professor's notes and requirements then maybe update frontend with possibly a template from bootsnips for beautification.
