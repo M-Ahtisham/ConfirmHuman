@@ -1,7 +1,7 @@
 {
   "states": {
     "start": {
-      "keywords": ["hello", "hi", "hey", "good morning", "good afternoon"],
+      "keywords": ["hello", "hi", "hey", "good morning", "good afternoon", "hallo"],
       "hint": "Hint 1: You can ask about which rooms are available, or informations about the room",
       "responses": [
         "Hello! Welcome to the university room booking system. How can I help you today?",
@@ -124,7 +124,7 @@
       "I want to help you with room bookings. Could you try asking in another way?"
     ],
     "hard": [
-      "I'm having trouble understanding. Would you like to start over?",
+      "I'm having trouble understanding. Lets start over.",
       "Let's try again. You can ask about room availability or make a booking."
     ]
   },

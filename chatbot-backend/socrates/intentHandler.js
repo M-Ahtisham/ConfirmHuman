@@ -1,25 +1,31 @@
 const keywords = require('./keyword-spotter.json');
 
-function intentHandler(message, currentState = 'start') {
+function intentHandler(message, currentState = 'start', context = [null, null, null, null]) {
   const text = message.toLowerCase();
   const currentStateData = keywords.states[currentState] || keywords.states.start;
-  
-  // We check if we should use a fallback
-  let useFallback = true;
+
+  const [name, date, time, room] = context;
+
+  console.log("Name:", name);
+  console.log("Date:", date);
+  console.log("Time:", time);
+  console.log("Room:", room);  
+
+  let useFallback = true; // This variables helps us know if we need to use a fallback, default is true unless a keyword is detected
   let matchedTransition = null;
-  let response = '';
+  let response = ''; // Response is empty by default
 
   // We check when the user is asking for a hint about the chatbot
-
   if (text.includes('help') || text.includes('hint')) {
     return {
-      response: currentStateData.hint || " #FALLBACK!# I can help you with room bookings. You can ask about availability or make a booking.", // Fallback if hint is missing
-      newState: currentState // Stay in current state
+      response: currentStateData.hint || " #FALLBACK! (Fix this later)# I can help you with room bookings. You can ask about availability or make a booking.", // Fallback if hint is missing
+      newState: currentState, // Stay in current state
+      context: [name, date, time, room]
     };
   }
 
 
-  // First check state keywords (if they exist)
+  // First current check state keywords (if they exist)
   if (currentStateData.keywords) {
     for (const keyword of currentStateData.keywords) {
       if (text.includes(keyword)) {
@@ -58,7 +64,8 @@ function intentHandler(message, currentState = 'start') {
     
     return {
       response,
-      newState: nextState
+      newState: nextState,
+      context: [name, date, time, room]
     };
   }
 
@@ -71,7 +78,8 @@ function intentHandler(message, currentState = 'start') {
     
     return {
       response,
-      newState: currentState
+      newState: currentState,
+      context: [name, date, time, room]
     };
   }
 
@@ -90,7 +98,8 @@ function intentHandler(message, currentState = 'start') {
     
     return {
       response,
-      newState: currentState
+      newState: currentState,
+      context: [name, date, time, room]
     };
   }
 }
