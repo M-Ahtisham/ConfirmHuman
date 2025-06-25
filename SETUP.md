@@ -6,7 +6,7 @@ This guide will help you set up and run the chatbot project locally on your Comp
 ## Prerequisites
 Before you start, make sure you have the following installed on your computer:
 
-- **Node.js** (version 22.14.0 LTS or compatible)
+- **Node.js** (version 22.14.0 LTS as per Praktikumsleistung (PrL) requirenments)
   - Download from: https://nodejs.org/
   - Check if installed: Open terminal/command prompt and type `node --version`
 - **Git** (for version control)
@@ -63,6 +63,8 @@ chatbot-project/
    - Socket.IO (real-time communication)
    - Other dependencies listed in package.json
 
+
+
 ### Step 3: Install Frontend Dependencies
 1. Navigate to the frontend folder:
    ```bash
@@ -81,7 +83,13 @@ chatbot-project/
 
 ## Running the Application
 
-### Option 1: Run Both Services Manually
+### Option 1: Run Both Services Manually or Using the script
+
+   Run this command : chmod +x script.sh (make sure to be in the correct directory)
+   and then run the Setup script : ./script.sh
+
+   You will see, If something is already running on port 3000
+   Press Y when prompted to run or N not to run the script
 
 #### Start the Backend Server
 1. Open a terminal window
