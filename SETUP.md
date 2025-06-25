@@ -85,11 +85,18 @@ chatbot-project/
 
 ### Option 1: Run Both Services Manually or Using the script
 
-   Run this command : chmod +x script.sh (make sure to be in the correct directory)
-   and then run the Setup script : ./script.sh
-
-   You will see, If something is already running on port 3000
-   Press Y when prompted to run or N not to run the script
+1. Run this command (make sure to be in the correct directory) :
+    ```bash 
+    chmod +x script.sh
+     ```
+    
+2. Then run the Setup script :
+      ```bash 
+    ./script.sh
+     ``` 
+3. You will see, If something is already running on port 3000
+   Press **Y** when prompted to run or **N** not to run the script
+     
 
 #### Start the Backend Server
 1. Open a terminal window
