@@ -6,3 +6,7 @@ check professor's notes and requirements then maybe update frontend with possibl
 For powershell bypass : Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
 for new icons: npm install react-icons
+npm install bootstrap
+
+Background:
+https://bootsnipp.com/snippets/7nBnW
