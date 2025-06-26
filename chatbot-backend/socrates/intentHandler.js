@@ -1,79 +1,54 @@
-const keywords = require('./keyword-spotter.json'); 
-// This file imported above is the most important, it contains the states the chatbot can be in
-// For each state, there are some keywords, hints, fallbacks and transition-keywords
+const keywords = require('./keyword-spotter.json');
 
-// We also need to think of a better name for the keyword-spotter file
+function intentHandler(message, currentState = 'start', context = [null, null, null, null]) {
+  // const text = message.toLowerCase().replace(/[’']/g, '').replace(/[^\w\s]/g, '').trim();
+  const text = message.toLowerCase().trim(); // Simple version for now
 
-function intentHandler(message, currentState = 'start', context = [0, null, null, null, null]) { // This is the main brain/logic of the chatbot 
-  const text = message.toLowerCase(); // all the keywords are lowercase
-  const currentStateData = keywords.states[currentState] || keywords.states.start; 
+  const currentStateData = keywords.states[currentState] || keywords.states.start;
 
-  let [fallbacks, name, date, time, room] = context; // The variable that stores all the info about the current room the user is talking about
+  const [name, date, time, room] = context;
 
-  
-  // This is for debugging purposes only.
-  console.log("Current State:", currentState)
-  console.log("Data:", currentStateData)
-  console.log("Fallbacks:", fallbacks);
-  console.log("Name     :", name);
-  console.log("Date     :", date);
-  console.log("Time     :", time);
-  console.log("Room     :", room);
-  console.log();                              // Empty line to separeate
+  console.log("Name:", name);
+  console.log("Date:", date);
+  console.log("Time:", time);
+  console.log("Room:", room);  
 
   let useFallback = true; // This variables helps us know if we need to use a fallback, default is true unless a keyword is detected
   let matchedTransition = null;
   let response = ''; // Response is empty by default
-  let newState = currentState; // Initialize newState to currentState
 
-
-  // 1. HINT 
-  // First thiing is to check if user is asking for a hint
-  if (text.includes('hint')) {
-    response = currentStateData.hint || "# FALLBACK!!! HINT NOT FOUND! (Fix this ASAP)# I can help you with room bookings. You can ask about availability or make a booking.";
+  // We check when the user is asking for a hint about the chatbot
+  if (text.includes('help') || text.includes('hint')) {
     return {
-      response,
-      newState: currentState,
-      context: [fallbacks, name, date, time, room]
+      // response: currentStateData.hint || " #FALLBACK! (Fix this later)# I can help you with room bookings.",
+      response: currentStateData.hint || "I can help you with room bookings. Try asking about availability or how to book a room.",
+      newState: currentState, // Stay in current state
+      context: [name, date, time, room]
     };
   }
 
- 
-  // Specific state handling
-
-  // For GET_NAME state
-  if (currentState == "ask_name") {
-
-    name = text.split(" ").map(word => {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(" ");
-
-    // The above method was taken from https://www.geeksforgeeks.org/javascript/convert-string-to-title-case-in-javascript/
-
-    response = "Hello " + name + " i saved your name!! ";
-    newState = "general_info";
-    return {
-      response,
-      newState,
-      context: [fallbacks, name, date, time, room]
+  // First current check state keywords (if they exist)
+  if (currentStateData.keywords) {
+    for (const keyword of currentStateData.keywords) {
+      // const cleanKeyword = keyword.toLowerCase().replace(/[’']/g, '').replace(/[^\w\s]/g, '').trim();
+      const cleanKeyword = keyword.toLowerCase().trim(); // easier version for now
+      if (text.includes(cleanKeyword)) {
+        useFallback = false;
+        break;
+      }
     }
   }
 
-
-
-
-
-  // 2. WE THEN CHECK FOR TRANSITION KEYWORDS
+  // We then check transitions (if keywords matched or state doesn't have keywords)
   if (currentStateData.transitions) {
-    for (const [transition, triggerWords] of Object.entries(currentStateData.transitions)) {
+    for (const transition in currentStateData.transitions) {
+      const triggerWords = currentStateData.transitions[transition];
       for (const word of triggerWords) {
-        if (text.includes(word)) {
+        // const cleanWord = word.toLowerCase().replace(/[’']/g, '').replace(/[^\w\s]/g, '').trim();
+        const cleanWord = word.toLowerCase().trim(); // simple for now
+        if (text.includes(cleanWord)) {
           useFallback = false;
           matchedTransition = transition;
-          newState = transition; // Update to the new state
-          // Get response from the new state's responses array
-          const newStateData = keywords.states[transition] || keywords.states.start;
-          response = newStateData.responses?.length 
-            ? newStateData.responses[Math.floor(Math.random() * newStateData.responses.length)] 
-            : "Transitioned to " + transition + ". How can I assist you now?";
           break;
         }
       }
@@ -81,40 +56,49 @@ function intentHandler(message, currentState = 'start', context = [0, null, null
     }
   }
 
-  // 3. CHECK FOR CURRENT STATE KEYWORDS
-  if (useFallback && currentStateData.keywords?.length) {
-    for (const keyword of currentStateData.keywords) {
-      if (text.includes(keyword)) {
-        useFallback = false;
-        response = currentStateData.responses?.length 
-          ? currentStateData.responses[Math.floor(Math.random() * currentStateData.responses.length)] 
-          : "I recognize your input, but I don't have a specific response. Try asking about room bookings.";
-        break;
-      }
-    }
-  }
-
-  // 4. HANDLE FALLBACK IF NONE OF THE KEYWORDS WAS FOUND
-  if (useFallback) {
-    if (fallbacks < 3) {
-      fallbacks += 1;
-      response = currentStateData.fallback || "I am not sure what you mean, can you please rephrase that. Or type 'hint' at to get more information";
-    } 
+  // Handle matched transition
+  if (!useFallback && matchedTransition) {
+    const nextStateData = keywords.states[matchedTransition];
     
-    else { // This is the hard fallback (Reset)
-      fallbacks = 0; // Reset fallbacks
-      newState = 'start'; // Reset to start state
-      name, date, time, room = null, null, null, null; 
-      response = "I've tried to understand, but I'm still confused. Let's start over. Type 'hint' for guidance.";
-    }
+    // Select random response from available options
+    const possibleResponses = nextStateData.responses || ["Okay, let's continue."]; // fallback if no responses defined
+    response = possibleResponses[Math.floor(Math.random() * possibleResponses.length)];
+    
+    return {
+      response,
+      newState: matchedTransition,
+      context: [name, date, time, room]
+    };
   }
 
+  // Handle case where we're staying in current state (keywords matched but no transition)
+  if (!useFallback && !matchedTransition) {
+    const possibleResponses = currentStateData.responses || ["Got it!"];
+    response = possibleResponses[Math.floor(Math.random() * possibleResponses.length)];
+    
+    return {
+      response,
+      newState: currentState,
+      context: [name, date, time, room]
+    };
+  }
 
+  // Handle fallback cases
+  // const fallbackResponses = keywords.fallbacks?.soft || [
+  //   "I'm not sure I understand. Could you rephrase that?",
+  //   "I didn't quite get that. Could you say it differently?"
+  // ];
+  const fallbackResponses = keywords.fallbacks?.soft || [
+    "I'm not sure I understand. Could you rephrase that?",
+    "I didn't quite get that. Could you say it differently?"
+  ];
+  
+  response = fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)];
 
   return {
     response,
-    newState,
-    context: [fallbacks, name, date, time, room]
+    newState: currentState,
+    context: [name, date, time, room]
   };
 }
 
