@@ -1,12 +1,13 @@
 tailwindcss version:
 npm install -D tailwindcss@3 postcss autoprefixer
 
-check professor's notes and requirements then maybe update frontend with possibly a template from bootsnips for beautification.
+Check professor's notes and requirements then maybe update frontend with possibly a template from bootsnipps for beautification.
 
 For powershell bypass : Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
 for new icons: npm install react-icons
-npm install bootstrap
 
-Background:
+for background to work : npm install bootstrap
+
+Background Bootsnipp:
 https://bootsnipp.com/snippets/7nBnW
