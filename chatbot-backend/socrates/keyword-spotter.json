@@ -118,7 +118,7 @@
     "make_booking": {
       "keywords": ["book", "reserve", "schedule", "take"],
       "responses": [
-        "Which room would you like to book? Available options: {list_of_rooms}",
+        "Which room would you like to book? Available options: {Single rooms C1-C9 and Group rooms G1-G10}",
         "Please specify the room number you want to reserve."
       ],
       "transitions": {
