@@ -1,7 +1,7 @@
 {
   "states": {
     "start": {
-      "keywords": ["hello", "hi", "hey", "good morning", "good afternoon", "hallo"],
+      "keywords": ["hello", "hi", "hey", "good morning", "good afternoon", "hallo", "servus","Servus", "morgen", "Morgen"],
       "hint": "Hint 1: You can ask about which rooms are available, or informations about the room",
       "responses": [
         "Hello! Welcome to the university room booking system. How can I help you today?",
@@ -12,7 +12,8 @@
         "check_availability": ["available", "free", "check", "room"],
         "make_booking": ["book", "reserve", "schedule"],
         "room_info": ["describe", "tell me about", "what's in", "facilities"]
-      }
+      },
+      "fallback": ["Sorry, I didn't undestand. You can ask me about available rooms or booking information."]
     },
     
     "check_availability": {
@@ -26,7 +27,8 @@
         "provide_date": ["today", "tomorrow", "monday", "tuesday", "wednesday", "thursday", "friday"],
         "provide_time": ["morning", "afternoon", "evening", "8am", "9am", "10am", "1pm", "2pm", "3pm"],
         "back_to_start": ["cancel", "nevermind", "start over"]
-      }
+      },
+      "fallback": ["Please specify a time or date, or say 'nevermind' to start it over."]
     },
     
     "provide_date": {
@@ -39,7 +41,8 @@
       "transitions": {
         "provide_time": ["morning", "afternoon", "evening", "8am", "9am", "10am", "1pm", "2pm", "3pm"],
         "back_to_start": ["cancel", "nevermind", "start over"]
-      }
+      },
+      "fallback": ["Please provide a valid day or say 'cancel' to reset the chat."]
     },
     
     "provide_time": {
@@ -52,7 +55,8 @@
       "transitions": {
         "show_availability": ["yes", "ok", "check"],
         "change_parameters": ["different time", "another day", "change"]
-      }
+      },
+       "fallback": ["Please provide a valid time or say 'cancel' to start it over."]
     },    
 
     "get_date": {
@@ -79,7 +83,7 @@
         "Okay, the rooms available on {date} at {time} are; {rooms}",
         "Thank you. The rooms available in the slot provided are: {rooms}"
       ],
-      "fallback": "Oops the time provided isnt within the correct time frame. Please select a reservation between 9am to 12am or morning through night",
+      "fallback": ["Oops the time provided isnt within the correct time frame. Please select a reservation between 9am to 12am or morning through night"],
       "transitions": {
         "next_state": ["get_room", "free", "check", "room"]
       }
