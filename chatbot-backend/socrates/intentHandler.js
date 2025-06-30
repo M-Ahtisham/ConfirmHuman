@@ -10,8 +10,7 @@ function intentHandler(message, currentState = 'start', context = [0, null, null
 
   let [fallbacks, name, date, time, room] = context; // The variable that stores all the info about the current room the user is talking about
 
-  
-  // This is for debugging purposes only.
+    // This is for debugging purposes only.
   console.log("Current State:", currentState)
   console.log("Data:", currentStateData)
   console.log("Fallbacks:", fallbacks);
@@ -20,6 +19,8 @@ function intentHandler(message, currentState = 'start', context = [0, null, null
   console.log("Time     :", time);
   console.log("Room     :", room);
   console.log();                              // Empty line to separeate
+
+
 
   let useFallback = true; // This variables helps us know if we need to use a fallback, default is true unless a keyword is detected
   let matchedTransition = null;
@@ -45,11 +46,11 @@ function intentHandler(message, currentState = 'start', context = [0, null, null
   if (currentState == "ask_name") {
 
     name = text.split(" ").map(word => {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(" ");
-
     // The above method was taken from https://www.geeksforgeeks.org/javascript/convert-string-to-title-case-in-javascript/
 
-    response = "Hello " + name + " i saved your name!! ";
-    newState = "general_info";
+    response = "Thank you " + name + ". On which day do you want the room?";
+    newState = "get_date";
+
     return {
       response,
       newState,
@@ -57,8 +58,50 @@ function intentHandler(message, currentState = 'start', context = [0, null, null
     }
   }
 
+    // For GET_DATE state
+  if (currentState == "get_date") {
 
+    date = text;
 
+    response = "Okay perfect, so you want a room on " + date + ".  On what time would you like to have it?";
+    newState = "get_time";
+    
+    return {
+      response,
+      newState,
+      context: [fallbacks, name, date, time, room]
+    }
+  }
+
+  // For GET_TIME state
+  if (currentState == "get_time") {
+
+    time = text;
+
+    response = "Thank you, so which room are you look for on " + date + " at " + time + "." ;
+    newState = "get_room";
+    
+    return {
+      response,
+      newState,
+      context: [fallbacks, name, date, time, room]
+    }
+  }
+
+  // For the GET_ROOM
+  if (currentState == "get_room") {
+
+    room = text;
+
+    response = "Thank you, so which room are you look for on " + date + " at " + time + "." ;
+    newState = "check_availability";
+    
+    return {
+      response,
+      newState,
+      context: [fallbacks, name, date, time, room]
+    }
+  }
 
 
   // 2. WE THEN CHECK FOR TRANSITION KEYWORDS
@@ -109,6 +152,13 @@ function intentHandler(message, currentState = 'start', context = [0, null, null
     }
   }
 
+
+
+
+  response = response.replace("{name}", name);
+  response = response.replace("{date}", date);
+  response = response.replace("{time}", time);
+  response = response.replace("{room}", room);
 
 
   return {
