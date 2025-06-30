@@ -40,35 +40,35 @@
 ## Project Requirements Fulfilled
 
 ### Functional Requirements
-- [1] University room booking domain-specific conversations
-- [2] Aggressive conversation steering through targeted questions
-- [3] Intent understanding from user utterances
-- [4] Soft fallback for misunderstood inputs
-- [5] Hard fallback for repeated conversation failures
-- [6] Room availability and scheduling task completion
-- [7] Conversation history memory
-- [8] 20+ Q&A turn capacity
-- [9] Non-repetitive responses (except fallbacks)
-- [10] Modern, responsive user interface
-- [11] Alternating question-answer display format
+-  University room booking domain-specific conversations
+-  Aggressive conversation steering through targeted questions
+-  Intent understanding from user utterances
+-  Soft fallback for misunderstood inputs
+-  Hard fallback for repeated conversation failures
+-  Room availability and scheduling task completion
+-  Conversation history memory
+-  20+ Q&A turn capacity
+-  Non-repetitive responses (except fallbacks)
+-  Modern, responsive user interface
+-  Alternating question-answer display format
 
 ### Technical Requirements
-- [1] HTML5 frontend implementation
-- [2] CSS-based responsive layout
-- [3] React framework with 4+ components
-- [4] Socket.IO and WebSocket communication
-- [5] Node.js backend (version 22.14.0 LTS)
-- [6] Express.js server implementation
-- [7] Keyword-spotting intent identification
-- [8] Extensible architecture for new intents/topics
-- [9] Bootstrap 5 integration for modern UI
-- [10] Clean, maintainable code structure
+-  HTML5 frontend implementation
+-  CSS-based responsive layout
+-  React framework with 4+ components
+-  Socket.IO and WebSocket communication
+-  Node.js backend (version 22.14.0 LTS)
+-  Express.js server implementation
+-  Keyword-spotting intent identification
+-  Extensible architecture for new intents/topics
+-  Bootstrap 5 integration for modern UI
+-  Clean, maintainable code structure
 
 ### Deployment Requirements
-- [1] Microsoft Azure cloud deployment
-- [2] Public URL accessibility
-- [3] SSL/TLS encryption
-- [3] Azure for Students subscription utilization
+-  Microsoft Azure cloud deployment
+-  Public URL accessibility
+-  SSL/TLS encryption(automatic via Azure using CLI as discussed in the Lecture)
+-  Azure for Students subscription utilization
 
 ## Quick Start Guide
 
