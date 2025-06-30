@@ -24,7 +24,7 @@ io.on('connection', (socket) => {
   // Initialize state and other variables for this user
   userStates.set(socket.id, {
     currentState: 'start', // This is the innitial state
-    context: [null, null, null, null] // We will store the name, date, time and room here separated by commas
+    context: [0, null, null, null, null] // We will store the fallbacks, name, date, time and room here separated by commas
     });
 
   socket.on('user_message', (msg) => {

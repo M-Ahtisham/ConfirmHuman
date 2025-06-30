@@ -2,11 +2,12 @@
 
 ## Project Overview
 
-**ConfirmHuman** is an intelligent chatbot designed to assist students and staff at TH Deggendorf with university room booking and availability inquiries. The chatbot provides real-time information about room reservations, availability of the rooms.
+**ConfirmHuman** is an intelligent chatbot designed to assist students and staff at TH Deggendorf with university room booking and availability inquiries. The chatbot provides real-time information about room reservations, availability of the rooms, ongoing lectures, and booking conflicts.
 
 ### Key Features
 - **Room Availability Checking**: Instantly check if specific rooms are available
 - **Schedule Information**: View when rooms will be free or occupied
+- **Booking Conflict Detection**: Identify overlapping reservations and lectures
 - **Real-time Updates**: Get current status of room bookings and usage
 - **Interactive Q&A**: Supports ca. 20+ questions and answers conversation turns
 - **Responsive Design**: Works seamlessly on mobile, tablet, and desktop devices(Jamal you have to verify this)
@@ -14,6 +15,7 @@
 ### Use Cases
 - Students looking for available study rooms
 - Staff checking meeting room availability
+- Professors verifying classroom schedules
 - Event organizers seeking suitable venues(as we have differrent clubs at the Uni which organises some events )
 - General room booking inquiries and assistance (Such as ITC2+)
 
@@ -38,35 +40,35 @@
 ## Project Requirements Fulfilled
 
 ### Functional Requirements
--  University room booking domain-specific conversations
--  Conversation engine through targeted questions
--  Intent understanding from user utterances
--  Soft fallback for misunderstood inputs
--  Hard fallback for repeated conversation failures
--  Room availability and scheduling task completion
--  Conversation history memory and reset chat fucntions
--  20+ Q&A turn capacity
--  Non-repetitive responses (except fallbacks)
--  Modern, responsive user interface
--  Alternating question-answer display format
+- [1] University room booking domain-specific conversations
+- [2] Aggressive conversation steering through targeted questions
+- [3] Intent understanding from user utterances
+- [4] Soft fallback for misunderstood inputs
+- [5] Hard fallback for repeated conversation failures
+- [6] Room availability and scheduling task completion
+- [7] Conversation history memory
+- [8] 20+ Q&A turn capacity
+- [9] Non-repetitive responses (except fallbacks)
+- [10] Modern, responsive user interface
+- [11] Alternating question-answer display format
 
 ### Technical Requirements
--  HTML5 frontend implementation
--  CSS-based responsive layout(bootsnip)
--  React framework
--  Socket.IO and WebSocket communication
--  Node.js backend (version 22.14.0 LTS)
--  Express.js server implementation
--  Keyword-spotting intent handeling
--  Extensible architecture for new intents/topics
--  Bootstrap 5 integration for modern UI
--  Clean, maintainable code structure
+- [1] HTML5 frontend implementation
+- [2] CSS-based responsive layout
+- [3] React framework with 4+ components
+- [4] Socket.IO and WebSocket communication
+- [5] Node.js backend (version 22.14.0 LTS)
+- [6] Express.js server implementation
+- [7] Keyword-spotting intent identification
+- [8] Extensible architecture for new intents/topics
+- [9] Bootstrap 5 integration for modern UI
+- [10] Clean, maintainable code structure
 
 ### Deployment Requirements
--  Microsoft Azure cloud deployment
--  Public URL accessibility
--  SSL/TLS encryption
--  Azure for Students subscription utilization
+- [1] Microsoft Azure cloud deployment
+- [2] Public URL accessibility
+- [3] SSL/TLS encryption
+- [3] Azure for Students subscription utilization
 
 ## Quick Start Guide
 
@@ -92,7 +94,7 @@ cd chatbot-frontend && npm start
 ## Chatbot Capabilities
 
 ### Room Information Queries
-- "Is room ITC 2+ room C9 available now?"
+- "Is room C101 available now?"
 - "When will room G207 be free?"
 - "Are there any lectures in room C301 today?"
 - "Show me available meeting rooms for 2 PM/ 14 uhr or (in the morning and evening times)"
