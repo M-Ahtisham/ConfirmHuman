@@ -1,60 +1,21 @@
 {
   "states": {
     "start": {
-      "keywords": ["hello", "hi", "hey", "good morning", "good afternoon", "hallo"],
+      "keywords": ["hello", "hi", "hey", "good morning", "good afternoon", "hallo", "servus","Servus", "morgen", "Morgen"],
       "hint": "Hint 1: You can ask about which rooms are available, or informations about the room",
       "responses": [
-        "Hello, my name is Socrates. I can help you with booking the rooms in the University",
-        "Hey there, I'm Socrates. How can i help you!"
+        "Hello! Welcome to the university room booking system. How can I help you today?",
+        "Hi there! I can help you book study rooms. What would you like to do?",
+        "Good day! Would you like to check room availability or make a booking?"
       ],
-      "fallback": "I am not sure what you mean, can you please rephrase that. Or type 'hint' at to get more information",
       "transitions": {
         "check_availability": ["available", "free", "check", "room"],
-        "ask_name": ["book", "reserve", "schedule"],
+        "make_booking": ["book", "reserve", "schedule"],
         "room_info": ["describe", "tell me about", "what's in", "facilities"]
-      }
+      },
+      "fallback": ["Sorry, I didn't undestand. You can ask me about available rooms or booking information."]
     },
     
-    "state-placehonder": {
-      "keywords": ["enter keywords here separated by commas. lowercase only"],
-      "hint": "Enter the hint specific to the state here",
-      "responses": [
-        "Enter multiple responces heres separated by commas, each should be in quotations"
-      ],
-      "fallback": "Enter the specific fallback to this state",
-      "transitions": {
-        "next_state": ["available", "free", "check", "room"],
-        "enter_the_next_state_here": ["enter keywords sepatated by commas"]
-      }
-    },
-
-    "ask_name": {
-      "keywords": ["my name is ", "name is", "i am called "],
-      "hint": "Please provide your name",
-      "responses": [
-        "Sure, Can you please provide me with your name.",
-        "Yeah sure, Can you tell me what your name is?",
-        "Okay, What is your name?"
-      ],
-      "fallback": "Provide your name, dont enter any invalid characters",
-      "transitions": {
-        "general_info": ["information", "free", "check", "room"]
-      }
-    },
-    
-    "general_info": {
-      "keywords": ["enter keywords here separated by commas. lowercase only"],
-      "hint": "Enter the hint specific to the state here",
-      "responses": [
-        "Enter multiple responces heres separated by commas, each should be in quotations"
-      ],
-      "fallback": "Enter the specific fallback to this state",
-      "transitions": {
-        "next_state": ["available", "free", "check", "room"],
-        "enter_the_next_state_here": ["enter keywords sepatated by commas"]
-      }
-    },
-
     "check_availability": {
       "keywords": ["available", "free", "check", "room", "when", "time"],
       "hint": "Hint 2: You can provide a date or a time like today, tomorrow, 10am, 3pm or just say nevermind to start again",
@@ -66,7 +27,8 @@
         "provide_date": ["today", "tomorrow", "monday", "tuesday", "wednesday", "thursday", "friday"],
         "provide_time": ["morning", "afternoon", "evening", "8am", "9am", "10am", "1pm", "2pm", "3pm"],
         "back_to_start": ["cancel", "nevermind", "start over"]
-      }
+      },
+      "fallback": ["Please specify a time or date, or say 'nevermind' to start it over."]
     },
     
     "provide_date": {
@@ -74,12 +36,13 @@
       "hint": "Hint 3: You provided the day already, now tell me the time you want it. something like 8am, 10am or 3pm",
       "responses": [
         "Got it. Now please tell me the time you need the room (e.g., 'morning', '2pm', etc.).",
-        "Understood. What time on ${date} would you like to check?"
+        "Understood. What time on {date} would you like to check?"
       ],
       "transitions": {
         "provide_time": ["morning", "afternoon", "evening", "8am", "9am", "10am", "1pm", "2pm", "3pm"],
         "back_to_start": ["cancel", "nevermind", "start over"]
-      }
+      },
+      "fallback": ["Please provide a valid day or say 'cancel' to reset the chat."]
     },
     
     "provide_time": {
@@ -92,9 +55,57 @@
       "transitions": {
         "show_availability": ["yes", "ok", "check"],
         "change_parameters": ["different time", "another day", "change"]
+      },
+       "fallback": ["Please provide a valid time or say 'cancel' to start it over."]
+    },    
+
+    "get_date": {
+      "keywords": ["monday", "tuesday", "wednesday", "thursday", "friday", "today", "tomorrow"],
+      "hint": "Hint: The rooms are only availble on working days (Monday - Friday). \n Would you like to reserve a room for the following Monday? Or maybe for today/tomorrow?",
+      "responses": [
+        "Thank you! What time on {data} would you like to reserve a room?",
+        "Wonderful! Now tell me the time at which you'd like to reserve a room.",
+        "Okay greay! When would you like to book the room for?"
+      ],
+      "fallback":[
+        "Unfortunately this date is invalid. please try again.",
+        "Please provide a valid day/date for the booking."
+      ],
+      "transitions": {
+        "next_state": ["get_time", "free", "check", "room"]
       }
     },
-    
+
+    "get_time": {
+      "keywords": ["morning", "noon", "afternoon", "evening", "night", "9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm", "12am"],
+      "hint": "Hint: Let me know the time for the reseravtion, you don't need exact time e.g I'd like to book it for 11am., reserve it for 12pm., I need a room in the morning.",
+      "responses": [
+        "Okay, the rooms available on {date} at {time} are; {rooms}",
+        "Thank you. The rooms available in the slot provided are: {rooms}"
+      ],
+      "fallback": ["Oops the time provided isnt within the correct time frame. Please select a reservation between 9am to 12am or morning through night"],
+      "transitions": {
+        "next_state": ["get_room", "free", "check", "room"]
+      }
+    },
+
+    "get_room": {
+      "keywords": ["{room}", "this room", "room"], 
+      "hint": [
+        "for now the functional words to progress are room, this room, or {room}",
+        "the {room} is a placeholder for when room.json is integrated fully."
+      ],
+      "responses": [
+        "O.K. Booking og {room} confirmed! would you like help with something else?",
+        "You have booked {room} of {date} at {time}, congrats!"
+      ],
+      "fallback": "Enter the specific fallback to this state",
+      "transitions": {
+        "next_state": ["available", "free", "check", "room"],
+        "enter_the_next_state_here": ["enter keywords sepatated by commas"]
+      }
+    },
+
     "show_availability": {
       "keywords": ["show", "results", "availability", "what's available"],
       "responses": [
@@ -105,13 +116,14 @@
         "make_booking": ["book", "reserve", "yes"],
         "new_search": ["different time", "another day"],
         "back_to_start": ["no", "cancel"]
-      }
+      },
+       "fallback": ["Please specify if you'd like to book a room or search again."]
     },
     
     "make_booking": {
       "keywords": ["book", "reserve", "schedule", "take"],
       "responses": [
-        "Which room would you like to book? Available options: {list_of_rooms}",
+        "Which room would you like to book? Available options: {Single rooms C1-C9 and Group rooms G1-G10}",
         "Please specify the room number you want to reserve."
       ],
       "transitions": {
@@ -129,7 +141,8 @@
       "transitions": {
         "end_conversation": ["thank you", "thanks", "done"],
         "new_booking": ["book another", "different room"]
-      }
+      },
+      "fallback": ["Please specify which room you would like to book, or say 'cancel' to start over."]
     },
     
     "room_info": {
@@ -141,7 +154,8 @@
       "transitions": {
         "specific_room_info": ["room 101", "room 205", "study pod"],
         "back_to_start": ["thanks", "ok", "got it"]
-      }
+      },
+      "fallback": ["Please specify which room you want information about, or say 'ok' to return."]
     },
     
     "specific_room_info": {
@@ -153,7 +167,8 @@
       "transitions": {
         "make_booking": ["yes", "book"],
         "back_to_start": ["no", "other options"]
-      }
+      },
+       "fallback": ["Please specify if you'd like to book this room or you wanna see other options available."]
     }
   },
   
