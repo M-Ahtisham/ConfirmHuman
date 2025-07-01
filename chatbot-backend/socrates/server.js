@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const app = express();
 const http = require('http');
@@ -5,6 +6,8 @@ const server = http.createServer(app);
 const { Server } = require('socket.io');
 
 const intentHandler = require('./intentHandler'); // This is the file that will handle the main logic of the chatbot
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 const io = new Server(server, {
   cors: {
