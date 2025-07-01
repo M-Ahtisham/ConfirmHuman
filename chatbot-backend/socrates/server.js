@@ -52,9 +52,9 @@ io.on('connection', (socket) => {
   });
 });
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });
 
-// This is based on the code examples from here https://socket.io/get-started/chat
+// This is based on the code examples from here https://socket.io/get-started/chat and https://nodejs.org/en/learn/command-line/how-to-read-environment-variables-from-nodejs
