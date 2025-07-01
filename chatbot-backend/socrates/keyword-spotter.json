@@ -8,13 +8,13 @@
         "Hey there, I'm Socrates. How can i help you!"
       ],
       "fallback": "I am not sure what you mean, can you please rephrase that. Or type 'hint' at to get more information",
-      "transitions": {
-        "check_availability": ["available", "free", "check", "room"],
+      "transitions": {        
         "ask_name": ["book", "reserve", "schedule"],
+        "check_availability": ["available", "free", "check", "room"],
         "room_info": ["describe", "tell me about", "what's in", "facilities"]
       }
     },
-    
+
     "state-placehonder": {
       "keywords": ["enter keywords here separated by commas. lowercase only"],
       "hint": "Enter the hint specific to the state here",
@@ -41,19 +41,6 @@
         "general_info": ["information", "free", "check", "room"]
       }
     },
-    
-    "general_info": {
-      "keywords": ["enter keywords here separated by commas. lowercase only"],
-      "hint": "Enter the hint specific to the state here",
-      "responses": [
-        "Enter multiple responces heres separated by commas, each should be in quotations"
-      ],
-      "fallback": "Enter the specific fallback to this state",
-      "transitions": {
-        "next_state": ["available", "free", "check", "room"],
-        "enter_the_next_state_here": ["enter keywords sepatated by commas"]
-      }
-    },
 
     "check_availability": {
       "keywords": ["available", "free", "check", "room", "when", "time"],
@@ -68,33 +55,54 @@
         "back_to_start": ["cancel", "nevermind", "start over"]
       }
     },
-    
-    "provide_date": {
-      "keywords": ["today", "tomorrow", "monday", "tuesday", "wednesday", "thursday", "friday", "weekend"],
-      "hint": "Hint 3: You provided the day already, now tell me the time you want it. something like 8am, 10am or 3pm",
+       
+    "get_date": {
+      "keywords": ["monday", "tuesday", "wednesday", "thursday", "friday", "today", "tomorrow"],
+      "hint": "Hint: The rooms are only availble on working days (Monday - Friday). \n Would you like to reserve a room for the following Monday? Or maybe for today/tomorrow?",
       "responses": [
-        "Got it. Now please tell me the time you need the room (e.g., 'morning', '2pm', etc.).",
-        "Understood. What time on ${date} would you like to check?"
+        "Thank you! What time on {date} would you like to reserve a room?",
+        "Wonderful! Now tell me the time at which you'd like to reserve a room.",
+        "Okay greay! When would you like to book the room for?"
+      ],
+      "fallback":[
+        "Unfortunately this day is invalid. please try again. You can enter 'Hint' for more help",
+        "Please provide a valid day/date for the booking."
       ],
       "transitions": {
-        "provide_time": ["morning", "afternoon", "evening", "8am", "9am", "10am", "1pm", "2pm", "3pm"],
-        "back_to_start": ["cancel", "nevermind", "start over"]
+        "next_state": ["get_time", "free", "check", "room"]
       }
     },
-    
-    "provide_time": {
-      "keywords": ["morning", "afternoon", "evening", "8am", "9am", "10am", "1pm", "2pm", "3pm"],
-      "hint": "Hint 4: I'll write this later ##### Stop here",
+
+    "get_time": {
+      "keywords": ["morning", "noon", "afternoon", "evening", "night", "9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm", "12am"],
+      "hint": "Hint: Let me know the time for the reseravtion, you don't need exact time e.g I'd like to book it for 11am., reserve it for 12pm., I need a room in the morning.",
       "responses": [
-        "Checking availability for {time} on {date}...",
-        "Let me see what's available at {time} on {date}..."
+        "Okay, the rooms available on {date} at {time} are; {rooms}",
+        "Thank you. The rooms available in the slot provided are: {rooms}"
       ],
+      "fallback": "Oops the time provided isnt within the correct time frame. Please select a reservation between 9am to 12am or morning through night.",
       "transitions": {
-        "show_availability": ["yes", "ok", "check"],
-        "change_parameters": ["different time", "another day", "change"]
+        "next_state": ["get_room", "free", "check", "room"]
       }
     },
-    
+
+    "get_room": {
+      "keywords": ["{room}", "this room", "room"], 
+      "hint": [
+        "for now the functional words to progress are room, this room, or {room}",
+        "the {room} is a placeholder for when room.json is integrated fully."
+      ],
+      "responses": [
+        "O.K. Booking og {room} confirmed! would you like help with something else?",
+        "You have booked {room} of {date} at {time}, congrats!"
+      ],
+      "fallback": "Enter the specific fallback to this state",
+      "transitions": {
+        "next_state": ["available", "free", "check", "room"],
+        "enter_the_next_state_here": ["enter keywords sepatated by commas"]
+      }
+    },
+
     "show_availability": {
       "keywords": ["show", "results", "availability", "what's available"],
       "responses": [
