@@ -11,7 +11,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const io = new Server(server, {
   cors: {
-    origin: '*', 
+    origin: 'http://localhost:3000',   // Removed ' * ' as suggested by Professor in the Lecture
     methods: ['GET', 'POST'],
   }
 });
