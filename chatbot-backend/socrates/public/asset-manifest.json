@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/static/css/main.0462cace.css",
-    "main.js": "/static/js/main.c603d09f.js",
+    "main.js": "/static/js/main.35310554.js",
     "static/media/Deus_Socrates.png": "/static/media/Deus_Socrates.6b24d9b8b5f842cdf6b3.png",
     "index.html": "/index.html",
     "main.0462cace.css.map": "/static/css/main.0462cace.css.map",
-    "main.c603d09f.js.map": "/static/js/main.c603d09f.js.map"
+    "main.35310554.js.map": "/static/js/main.35310554.js.map"
   },
   "entrypoints": [
     "static/css/main.0462cace.css",
-    "static/js/main.c603d09f.js"
+    "static/js/main.35310554.js"
   ]
 }
