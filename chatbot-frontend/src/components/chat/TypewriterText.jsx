@@ -1,23 +1,24 @@
-// Typewriter effect idea from:
-// https://bootsnipp.com/snippets/XRNAv
 import React, { useEffect, useState } from 'react';
 
+// Typewriter effect inspired by: https://bootsnipp.com/snippets/XRNAv
 export default function TypewriterText({ text, onComplete }) {
-  const [displayed, setDisplayed] = useState('');
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    let index = 0;
-    const interval = setInterval(() => {
-      setDisplayed((prev) => prev + text.charAt(index));
-      index++;
-      if (index === text.length) {
-        clearInterval(interval);
-        if (onComplete) onComplete();
-      }
-    }, 30); // guys adjust this if you think it is too slow
+    if (index < text.length) {
+      const timeout = setTimeout(() => {
+        setIndex(index + 1);
+      }, 30);
 
-    return () => clearInterval(interval);
-  }, [text, onComplete]);
+      return () => clearTimeout(timeout);
+    } else {
+      if (onComplete) onComplete();
+    }
+  }, [index, text, onComplete]);
 
-  return <p className="whitespace-pre-wrap break-words">{displayed}</p>;
+  return (
+    <p className="whitespace-pre-wrap break-words">
+      {text.slice(0, index)}
+    </p>
+  );
 }
