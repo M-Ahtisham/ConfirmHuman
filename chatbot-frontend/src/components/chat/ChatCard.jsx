@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
 import MessageList from './MessageList';
 
-const socket = io('http://localhost:3000');
+const socket = io("");
 export default function ChatCard() {
   const [messages, setMessages] = useState([
     { from: 'bot', type: 'text', text: 'Hi I am Socrates! How can I help you today?' },
