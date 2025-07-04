@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
 import MessageList from './MessageList';
+import handleAIChatWithGemini from './GeminiAIChat';
+import prompt from '../prompt';
+import useAIChatWithGemini from './GeminiAIChat';
 
-const socket = io('http://localhost:3000');
+const socket = io("");
 export default function ChatCard() {
   const [messages, setMessages] = useState([
-    { from: 'bot', type: 'text', text: 'Hi I am Socrates! How can I help you today?' },
+    { from: 'bot', type: 'text', text: 'Hi I am Plato! How can I help you today?' },
   ]);
   const [input, setInput] = useState('');
+
+  const {  isLoading, mutateAsync } = useAIChatWithGemini(input);
 
   useEffect(() => {
     socket.on('bot_message', (msg) => {
@@ -16,13 +21,16 @@ export default function ChatCard() {
     return () => socket.off('bot_message');
   }, []);
 
-  const sendMessage = () => {
+  const sendMessage = async () => {
     if (!input.trim()) return;
 
-    const userMsg = input.trim();
-    setMessages((prev) => [...prev, { from: 'user', type: 'text', text: userMsg }]);
-    socket.emit('user_message', userMsg);
+    setMessages((prev) => [...prev, { from: 'user', type: 'text', text: input }]);
     setInput('');
+
+   const data =  await mutateAsync(`${prompt} History of the conversation: ${JSON.stringify(messages)} \n Now my query is: ${input}`);
+    if (data) {
+      setMessages((prev) => [...prev, { from: 'bot', type: 'text', text: data }]);
+    }
   };
 
   return (
@@ -38,9 +46,10 @@ export default function ChatCard() {
         />
         <button
           className="bg-blue-500 text-white px-4 rounded-r-md"
+          disabled={isLoading}
           onClick={sendMessage}
         >
-          Send
+          {isLoading ? 'Thinking...' : 'Send'}
         </button>
       </div>
     </div>

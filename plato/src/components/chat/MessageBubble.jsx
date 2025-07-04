@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaUser } from 'react-icons/fa';
-import botIcon from '../assets/Deus_Socrates.png'; 
+import botIcon from '../assets/Deus_Socrates.png';
+import TypewriterText from './TypewriterText';
 
 export default function MessageBubble({ from, type, text }) {
   const isUser = from === 'user';
@@ -23,17 +24,18 @@ export default function MessageBubble({ from, type, text }) {
 
   return (
     <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-3`}>
-      
       {!isUser && (
         <div className="flex-shrink-0 mr-2 self-end">
           {currentStyle.icon}
         </div>
       )}
 
-      <div 
-        className={`flex items-center max-w-[85%] p-3 rounded-lg ${currentStyle.bg} ${currentStyle.text} ${currentStyle.rounded} shadow-sm`}
-      >
-        <p className="whitespace-pre-wrap break-words">{text}</p>
+      <div className={`flex items-center max-w-[85%] p-3 rounded-lg ${currentStyle.bg} ${currentStyle.text} ${currentStyle.rounded} shadow-sm`}>
+        {isUser ? (
+          <p className="whitespace-pre-wrap break-words">{text}</p>
+        ) : (
+          <TypewriterText text={text} />
+        )}
       </div>
 
       {isUser && (
