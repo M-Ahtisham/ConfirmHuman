@@ -1,7 +1,14 @@
 {
   "states": {
     "start": {
-      "keywords": [ "hello", "hi", "hey", "good morning", "good afternoon", "hallo" ],
+      "keywords": [
+        "hello",
+        "hi",
+        "hey",
+        "good morning",
+        "good afternoon",
+        "hallo"
+      ],
       "hint": "Hint 1: You can ask about which rooms are available, or informations about the room",
       "responses": [
         "Hello, my name is Socrates. I can help you with booking the rooms in the University",
@@ -9,25 +16,66 @@
       ],
       "fallback": "I am not sure what you mean, can you please rephrase that. Or type 'hint' at to get more information",
       "transitions": {
-        "ask_name": [ "book", "reserve", "schedule" ],
-        "show_availability": [ "available", "see", "what's available", "which rooms" ], 
-        "room_info": [ "describe", "tell me about", "what's in", "facilities" ]
+        "ask_name": [
+          "book",
+          "reserve",
+          "schedule"
+        ],
+        "show_availability": [
+          "available",
+          "see",
+          "what's available",
+          "which rooms"
+        ],
+        "room_info": [
+          "describe",
+          "tell me about",
+          "what's in",
+          "facilities"
+        ]
       }
     },
-
     "ask_name": {
-      "keywords": [ "my name is", "name is", "i am called" ],
+      "keywords": [
+        "my name is",
+        "name is",
+        "i am called"
+      ],
       "hint": "Please provide your name",
-      "responses": [ "Sure, Can you please provide me with your name.", "Yeah sure, Can you tell me what your name is?", "Okay, What is your name?" ],
+      "responses": [
+        "Sure, Can you please provide me with your name.",
+        "Yeah sure, Can you tell me what your name is?",
+        "Okay, What is your name?"
+      ],
       "fallback": "Provide your name, don't enter any invalid characters",
       "transitions": {
-        "show_availability": [ "available", "see", "what's available", "which rooms" ],
-        "get_date": [ "today", "tomorrow", "monday", "tuesday", "wednesday", "thursday", "friday" ]
+        "show_availability": [
+          "available",
+          "see",
+          "what's available",
+          "which rooms"
+        ],
+        "get_date": [
+          "today",
+          "tomorrow",
+          "monday",
+          "tuesday",
+          "wednesday",
+          "thursday",
+          "friday"
+        ]
       }
     },
-
     "get_date": {
-      "keywords": [ "monday", "tuesday", "wednesday", "thursday", "friday", "today", "tomorrow" ],
+      "keywords": [
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+        "friday",
+        "today",
+        "tomorrow"
+      ],
       "hint": "Hint: The rooms are only available on working days (Monday - Friday).",
       "responses": [
         "Okay perfect, so you want a room on {date}. On what time would you like to have it?"
@@ -37,56 +85,138 @@
         "Please provide a valid day/date for the booking."
       ],
       "transitions": {
-        "show_availability": [ "available", "see", "what's available", "which rooms" ],
-        "get_time": [ "9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm" ]
+        "show_availability": [
+          "available",
+          "see",
+          "what's available",
+          "which rooms"
+        ],
+        "get_time": [
+          "9am",
+          "10am",
+          "11am",
+          "12pm",
+          "1pm",
+          "2pm",
+          "3pm",
+          "4pm",
+          "5pm"
+        ]
       }
     },
-
     "get_time": {
-      "keywords": [ "9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm" ],
+      "keywords": [
+        "9am",
+        "10am",
+        "11am",
+        "12pm",
+        "1pm",
+        "2pm",
+        "3pm",
+        "4pm",
+        "5pm"
+      ],
       "hint": "Let me know the time for the reservation",
       "responses": [
         "Thank you, so which room are you looking for on {date} at {time}?"
       ],
-      "fallback": "Oops, the time provided isn't correct. Try something between 9am to 3pm",
+      "fallback": "Oops, the time provided isn't correct. Try something between 9am to 5pm",
       "transitions": {
-        "get_room": [ "room", "show", "available", "what" ],
-        "show_availability": [ "available", "see", "what's available", "which rooms" ],
-        "back_to_start": [ "cancel", "start over" ]
+        "get_room": [
+          "room",
+          "show",
+          "available",
+          "what"
+        ],
+        "show_availability": [
+          "available",
+          "see",
+          "what's available",
+          "which rooms"
+        ],
+        "back_to_start": [
+          "cancel",
+          "start over"
+        ]
       }
     },
-
     "get_room": {
-      "keywords": [ "room", "show", "available", "what" ],
+      "keywords": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c7",
+        "c8",
+        "c9",
+        "g1",
+        "g2",
+        "g3",
+        "g4",
+        "g5",
+        "g6",
+        "g7",
+        "g8",
+        "g9",
+        "g10"
+      ],
       "hint": "Type a specific room name (like C1, G3) or say 'show available rooms'",
       "responses": [
         "Here are all the rooms you can pick from: {room_list}."
       ],
-      "fallback": "Please specify a valid room or type 'show rooms'",
+      "fallback": "Please specify a valid room, Single rooms start from C1 - C9, group rooms start from G1 - G10",
       "transitions": {
-        "show_availability": [ "available", "see", "what's available", "which rooms" ],
-        "back_to_start": [ "cancel", "start over" ]
+        "show_availability": [
+          "available",
+          "see",
+          "what's available",
+          "which rooms"
+        ],
+        "back_to_start": [
+          "cancel",
+          "start over"
+        ]
       }
     },
-
-    "confirm_booking": {
-      "keywords": [ "confirm", "yes", "book it", "proceed" ],
+    "show_availability": {
+      "keywords": [
+        "show",
+        "available",
+        "availability",
+        "rooms",
+        "list"
+      ],
+      "hint": "Say 'show available rooms'",
       "responses": [
-        "Booking confirmed! You have {room} on {date} at {time}."
+        "Here's a list of available rooms:\n\nSingle Rooms:\n- C1\n- C2\n- C3\n\nGroup Rooms:\n- G1 (with window)\n- G2 (no window)\n- G3 (with window)"
+      ],
+      "fallback": [
+        "Try saying 'show available rooms'",
+        "Would you like to see available rooms?"
       ],
       "transitions": {
-        "start": [ "done", "thank you" ]
+        "confirm_booking": [
+          "yes",
+          "confirm",
+          "looks good"
+        ]
       }
     }
   },
-
   "fallbacks": {
     "soft": [
+      "I'm not sure I understand. Try saying something like 'book a room' or 'what's available?'",
+      "Didn't catch that — type 'hint' if you're stuck.",
+      "Hmm, that didn’t match anything. Maybe try a different way?",
       "I'm not sure I understand. Could you rephrase that?",
       "I didn't quite get that. Could you say it differently?"
     ],
     "hard": [
-      "I'm having trouble understanding. Let's start over."
+      "I'm having trouble understanding. Let's start over.",
+      "I apologize, I'm having too much trouble. Let's restart.",
+      "Restarting conversation because of too many errors"
     ]
   }
 }
