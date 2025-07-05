@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-
 // Typewriter effect inspired by: https://bootsnipp.com/snippets/XRNAv
 export default function TypewriterText({ text, onComplete }) {
   const [index, setIndex] = useState(0);

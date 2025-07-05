@@ -1,4 +1,4 @@
-#particles { 
+#particles {
   position: absolute;
   top: 0;
   left: 0;
@@ -9,7 +9,7 @@
 }
 .pg-canvas {
   display: block;
-  background-color: #16a085;
+  background-color: #0000;
 }
 
 #webcoderskull {

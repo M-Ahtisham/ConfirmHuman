@@ -31,8 +31,7 @@ export default function Background() {
       const ctx = canvas.getContext('2d');
 
       // reusable vars
-      let particles = [], raf, mouseX = 0, mouseY = 0;
-      let winW, winH;
+      let particles = [], mouseX = 0, mouseY = 0;
       const desktop = !/mobi|tablet/i.test(navigator.userAgent);
       const orientationSupport = !!window.DeviceOrientationEvent;
       let tiltX = 0, tiltY = 0, pointerX, pointerY, paused = false;
@@ -164,10 +163,10 @@ export default function Background() {
       };
     }
 
-    
+
     const instance = particleground(el, {
-      dotColor: '#5cbdaa',
-      lineColor: '#5cbdaa'
+      dotColor: '#56DFCF',
+      lineColor: '#56DFCF'
     });
 
     return () => instance.destroy();

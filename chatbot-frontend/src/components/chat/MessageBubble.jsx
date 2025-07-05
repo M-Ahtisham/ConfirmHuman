@@ -1,6 +1,6 @@
 import React from 'react';
-import { FaUser } from 'react-icons/fa';
-import botIcon from '../assets/Deus_Socrates.png';
+import { VscAccount } from "react-icons/vsc";
+import botIcon from '../assets/Platon.png'; // https://commons.wikimedia.org/wiki/File:Platon.png
 import TypewriterText from './TypewriterText';
 
 export default function MessageBubble({ from, type, text }) {
@@ -8,14 +8,16 @@ export default function MessageBubble({ from, type, text }) {
 
   const bubbleStyles = {
     user: {
-      bg: 'bg-blue-600',
-      text: 'text-white',
-      icon: <FaUser className="h-12 w-6" />, // User icon from https://fontawesome.com/icons/user?f=classic&s=solid (also guy check out others and tell me which ones you llike better )
+      // change number inside [] for bubble colour
+      bg: 'bg-[#7FF0F0]',
+      text: 'text-gray-800',
+      icon: <VscAccount className="h-10 w-10" />,
     },
     bot: {
-      bg: 'bg-emerald-100',
+      // change number inside [] for bubble colour
+      bg: 'bg-[#e6b8ff]',
       text: 'text-gray-800',
-      icon: <img src={botIcon} alt="Bot" className="h-14 w-14 object-contain" />, // Bot image from https://commons.wikimedia.org/wiki/File:Deus_Socrates.png
+      icon: <img src={botIcon} alt="Bot" className="h-11 w-11 object-contain" />,
       rounded: 'rounded-tl-none'
     }
   };
@@ -30,7 +32,7 @@ export default function MessageBubble({ from, type, text }) {
         </div>
       )}
 
-      <div className={`flex items-center max-w-[85%] p-3 rounded-lg ${currentStyle.bg} ${currentStyle.text} ${currentStyle.rounded} shadow-sm`}>
+      <div className={`flex items-center max-w-[85%] p-2 rounded-lg ${currentStyle.bg} ${currentStyle.text} ${currentStyle.rounded} shadow-sm`}>
         {isUser ? (
           <p className="whitespace-pre-wrap break-words">{text}</p>
         ) : (
