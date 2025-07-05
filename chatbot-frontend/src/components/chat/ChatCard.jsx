@@ -29,7 +29,7 @@ export default function ChatCard() {
   return (
 
     // chat container and Banner
-    <div className="w-full h-[600px] flex flex-col rgb(1, 118, 81)/60 backdrop-blur-xl shadow-xl rounded-2xl overflow-hidden glow-animation">
+    <div className="w-full h-[600px] flex flex-col rgb(1, 118, 81)/60 backdrop-blur-sm shadow-2xl rounded-2xl overflow-hidden glow-animation">
 
       <div className="flex flex-col w-full h-full overflow-hidden rounded-2xl">
         <div className="bg-[#0ABAB5]/10 text-gray-800 p-4 text-center text-4xl font-bold shadow-md rounded-t-2xl
