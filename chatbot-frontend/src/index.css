@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* REMINDER CHECK IF WORKS */
 @layer utilities {
   .scrollbar-hidden::-webkit-scrollbar { display: none; }
 }
@@ -39,5 +38,13 @@
       opacity: 1;
       transform: translateY(0);
     }
+  }
+  
+  @font-face {
+    font-family: 'Spartacus';
+    src: url('./font/Spartacus.ttf') format('truetype'); /*https://www.fontspace.com/spartacus-font-f115964*/
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
   }
 }

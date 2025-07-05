@@ -5,6 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        'spartacus': ['Spartacus', 'serif'], // for the banner name in background
+      },
       colors: {
         brand: {
           50: '#e7f5ff',
