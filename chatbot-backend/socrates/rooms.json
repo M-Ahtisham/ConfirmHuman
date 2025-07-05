@@ -1,0 +1,25 @@
+{
+  "singleRooms": [
+    { "location": "C1", "group": false },
+    { "location": "C2", "group": false },
+    { "location": "C3", "group": false },
+    { "location": "C4", "group": false },
+    { "location": "C5", "group": false },
+    { "location": "C6", "group": false },
+    { "location": "C7", "group": false },
+    { "location": "C8", "group": false },
+    { "location": "C9", "group": false }
+  ],
+  "groupRooms": [
+    { "location": "G1", "group": true, "hasWindow": false },
+    { "location": "G2", "group": true, "hasWindow": false },
+    { "location": "G3", "group": true, "hasWindow": false },
+    { "location": "G4", "group": true, "hasWindow": false },
+    { "location": "G5", "group": true, "hasWindow": false },
+    { "location": "G6", "group": true, "hasWindow": false },
+    { "location": "G7", "group": true, "hasWindow": true },
+    { "location": "G8", "group": true, "hasWindow": true },
+    { "location": "G9", "group": true, "hasWindow": true },
+    { "location": "G10", "group": true, "hasWindow": true }
+  ]
+}

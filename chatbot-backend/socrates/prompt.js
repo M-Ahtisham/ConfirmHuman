@@ -136,4 +136,4 @@ The files attached to you are only for context, and should not be modified or ch
   Please dont give me any other information than the ones provided to you and give me relevent information only.
 }`;
 
-export default prompt;
+module.exports = prompt;

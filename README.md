@@ -2,12 +2,11 @@
 
 ## Project Overview
 
-**ConfirmHuman** is an intelligent chatbot designed to assist students and staff at TH Deggendorf with university room booking and availability inquiries. The chatbot provides real-time information about room reservations, availability of the rooms, ongoing lectures, and booking conflicts.
+**ConfirmHuman** is a Student and Professor friendly chatbot designed to assist students and staff at TH Deggendorf with university room bookings and availabilities inquiries. The chatbot provides real-time information about room reservations, availability of the rooms.
 
 ### Key Features
 - **Room Availability Checking**: Instantly check if specific rooms are available
 - **Schedule Information**: View when rooms will be free or occupied
-- **Booking Conflict Detection**: Identify overlapping reservations and lectures
 - **Real-time Updates**: Get current status of room bookings and usage
 - **Interactive Q&A**: Supports ca. 20+ questions and answers conversation turns
 - **Responsive Design**: Works seamlessly on mobile, tablet, and desktop devices(Jamal you have to verify this)
@@ -15,7 +14,6 @@
 ### Use Cases
 - Students looking for available study rooms
 - Staff checking meeting room availability
-- Professors verifying classroom schedules
 - Event organizers seeking suitable venues(as we have differrent clubs at the Uni which organises some events )
 - General room booking inquiries and assistance (Such as ITC2+)
 
@@ -54,21 +52,21 @@
 
 ### Technical Requirements
 -  HTML5 frontend implementation
--  CSS-based responsive layout
+-  CSS-based responsive layout(Bootsnip)
 -  React framework with 4+ components
 -  Socket.IO and WebSocket communication
 -  Node.js backend (version 22.14.0 LTS)
 -  Express.js server implementation
--  Keyword-spotting intent identification
--  Extensible architecture for new intents/topics
+-  Keyword-spotting intent Handling
+-  Extensible architecture for new intents/topics(Such as different types of rooms)
 -  Bootstrap 5 integration for modern UI
--  Clean, maintainable code structure
+
 
 ### Deployment Requirements
 -  Microsoft Azure cloud deployment
 -  Public URL accessibility
 -  SSL/TLS encryption(automatic via Azure using CLI as discussed in the Lecture)
--  Azure for Students subscription utilization
+-  Azure for Students subscription utilization 
 
 ## Quick Start Guide
 
@@ -94,8 +92,8 @@ cd chatbot-frontend && npm start
 ## Chatbot Capabilities
 
 ### Room Information Queries
-- "Is room C101 available now?"
-- "When will room G207 be free?"
+- "Is room C1(Single Room) available now?"
+- "When will room G10(Group Room) be free?"
 - "Are there any lectures in room C301 today?"
 - "Show me available meeting rooms for 2 PM/ 14 uhr or (in the morning and evening times)"
 
@@ -106,7 +104,6 @@ cd chatbot-frontend && npm start
 - Assist with booking procedures
 
 ### Schedule Management
-- Display daily room schedules
 - Show upcoming reservations
 - Identify free time slots
 - Alert about booking conflicts (or a softfallback of Kindly choose another slot as it has already been booked )
@@ -133,9 +130,9 @@ ConfirmHuman/ (This is the folder we have in our systems could differ on differe
 
 ## Development Guidelines
 
-- **Clean Code**: Follow best practices for maintainable code
-- **Responsive Design**: Ensure compatibility across all devices
-- **Error Handling**: Implement robust fallback mechanisms
+- **Clean Code**: Follows best practices taught in the lecture for maintainable and Clean code
+- **Responsive Design**: Ensure compatibility across all devices and Operating Systems 
+- **Error Handling**: Implemented Responsive fallback mechanisms for around every time the bot fails to give a correct response.
 - **Extensibility**: Design for easy addition of new room types and features
 - **Performance**: Optimize for real-time communication (After doing the Bonus Pronlem)
 
@@ -145,10 +142,9 @@ The deployed chatbot on Azure will be accessible at: [URL provided in url.txt]
 
 ## Course Information
 
-- **Course**: Internet Technologies
+- **Course**: Internet Technologies Summer Semester 2025
 - **Professor**: Prof. Dr. Andreas Wölfl
-- **Institution**: Technische Hochschule Deggendorf
-- **Semester**: Summer Semester 2025
+- **Institution Name**: Technische Hochschule Deggendorf
 - **Project Type**: Praktikumsleistung (PrL)
 
 ## License
