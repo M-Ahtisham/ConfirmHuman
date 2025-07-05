@@ -1,4 +1,6 @@
 const keywords = require('./keyword-spotter.json');
+const room_details = require('./rooms.json');
+
 
 // function to match message to keyword list
 function messageMatchesKeywords(message, keywordList) {
@@ -47,7 +49,7 @@ function intentHandler(message, currentState = 'start', context = [0, null, null
   // --- ask_name state ---
   if (currentState === 'ask_name') {
     // just grab name from sentence, might be buggy
-    let nameMatch = message.toLowerCase().match(/(?:my name is|i am called|name is)\s+(.+)/);
+    let nameMatch = message.toLowerCase().match(/(?:my name is|i am called|name is)\s+(.+)/);   // still buggy 😔
     if (nameMatch && nameMatch[1]) {
       name = nameMatch[1].trim(); // doesn't clean symbols yet
     } else {
@@ -96,7 +98,7 @@ function intentHandler(message, currentState = 'start', context = [0, null, null
     if (messageMatchesKeywords(text, currentStateData.keywords)) {
       room = message;
       response = "Perfect, so you're looking for " + room + " on " + date + " at " + time + ". is that correct?";
-      newState = 'check_availability'; // or maybe stay in get_room?
+      newState = 'show_availability'; // or maybe stay in get_room?
     } else {
       response = currentStateData.fallback;
       if (Array.isArray(response)) {
@@ -107,6 +109,46 @@ function intentHandler(message, currentState = 'start', context = [0, null, null
 
     return { response, newState, context: [0, name, date, time, room] };
   }
+
+  // --- show_availability state ---
+  if (currentState === 'show_availability') {
+    if (messageMatchesKeywords(text, currentStateData.keywords)) {
+      // get rooms from json
+      let singleRooms = room_details.singleRooms;
+      let groupRooms = room_details.groupRooms;
+
+      // make a response string with all rooms
+      response = "Here's a list of available rooms:\n\n";
+
+      // list single rooms
+      response += "Single Rooms:\n";
+      for (let i = 0; i < singleRooms.length; i++) {
+        response += "- " + singleRooms[i].location + "\n";
+      }
+
+      // list group rooms
+      response += "\nGroup Rooms:\n";
+      for (let i = 0; i < groupRooms.length; i++) {
+        let room = groupRooms[i];
+        let windowText = room.hasWindow ? "(with window)" : "(no window)";
+        response += "- " + room.location + " " + windowText + "\n";
+      }
+
+      // go to next state
+      newState = 'confirm_booking';
+    } else {
+      // fallback if input doesn’t match any keywords
+      response = currentStateData.fallback;
+      if (Array.isArray(response)) {
+        response = getRandomResponse(response);
+      }
+      return { response, newState, context: [fallbacks + 1, name, date, time, room] };
+    }
+
+    // return updated response and context
+    return { response, newState, context: [0, name, date, time, room] };
+  }
+
 
   // --- transition handling ---
   if (currentStateData.transitions) {
