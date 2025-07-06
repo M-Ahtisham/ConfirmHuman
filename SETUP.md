@@ -136,23 +136,10 @@ Before you start, make sure you have the following installed on your computer:
 
 ## Running the Application
 
-### Option 1: Run Both Services Manually or Using the script
-
-1. Run this command (make sure to be in the correct directory) :
-    ```bash 
-    chmod +x script.sh
-     ```
-    
-2. Then run the Setup script :
-      ```bash 
-    ./script.sh
-     ``` 
-3. You will see, If something is already running on port 3000
-   Press **Y** when prompted to run or **N** not to run the script
      
-### Option 2: Build the Frontednd and them copy the build to the Backend
+### Option 1 (Recommended): Build the Frontednd and them copy the build to the Backend
 
-1. Run this command in the root directory of ConfirmHuman :
+1. Run this command in the root directory of ConfirmHuman using the 'gitbash' terminal :
     ```bash 
     chmod +x build_app.sh
      ```
@@ -163,18 +150,6 @@ Before you start, make sure you have the following installed on your computer:
      ``` 
 3. The app should be built and start running, if something is already running on port 3000, kill the process that is using that port (probably Node.js) or restart  your computer
      
-### Option 3: On Windows you can proceed as follows
-
-
-
-
-
-
-
-
-
-
-
 
 ## Accessing the ChatBot
 
