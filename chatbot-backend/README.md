@@ -50,18 +50,63 @@ The primary logic of the ChatBot is implemented in the `intentHandler.js` file, 
 ### Sample conversation
 
 #### **Example 1:**
-> **Bot:** Hi I am Socrates! How can I help you today?
+> **Bot:** Hi there, I am Socrates, Your ITC room booking assistant. How can I help you today?    
 > **User:** Hellow  
 > **Bot:** Hello, my name is Socrates. I can help you with booking the rooms in the University  
-> **User:** Sure, which rooms are available
+> **User:** okay how?  
+> **Bot:**  I am not sure what you mean, can you please rephrase that. You can tell me something like 'I want to book a room' Or type 'hint' at to get more information  
+> **User:** give me a hint  
+> **Bot:** You can tell me to help you with booking a room in the ITC building  
+> **User:** okay help me book a room then  
+> **Bot:** Sure, Can you please provide me with your name.  
+> **User:** my name is jamal dassrath  
+> **Bot:** Thank you Jamal Dassrath. When would you like to book the room?  
+> **User:** 7th july  
+> **Bot:**  Okay perfect, so you want a room on 7th july.  On what time would you like to have it?  
+> **User:**  2pm  
+> **Bot:**  Thank you, so which room are you looking for on 7th july at 2pm.  
+> **User:** g2  
+> **Bot:**  Perfect, so youre looking for g2 on 7th july at 2pm. is that correct?  
+> **User:** yes thats correct  
+> **Bot:**  Booking confirmed! You have Room g2 on 7th july at 2pm.  
+> **User:** thank you  
 
-(TO BE FINISHED LATER)
 
 #### **Example 2:**
-> **Bot:** Hi I am Socrates! How can I help you today?
-> **User:** Hey  
+> **Bot:** Hi there, I am Socrates, Your ITC room booking assistant. How can I help you today?  
+> **User:** hey socrates  
+> **Bot:**   Hey there, I'm Socrates, your booking assistant for the ITC building. I can help you book available single rooms (C1-C9) or group rooms (G1-G10). How can i help you!  
+> **User:**  i need a room   
+> **Bot:** Sure, Can you please provide me with your name.  
+> **User:** name is erbakan ahmad  
+> **Bot:** Thank you Erbakan Ahmad. When would you like to book the room?  
+> **User:** tomorrow     
+> **Bot:** Okay perfect, so you want a room on tomorrow.  On what time would you like to have it? 
+> **User:** 10am   
+> **Bot:** Thank you, so which room are you looking for on tomorrow at 10am.    
+> **User:** c8   
+> **Bot:** Perfect, so youre looking for c8 on tomorrow at 10am. is that correct?
+> **User:** nah nevermind  
+> **Bot:**  I am not sure what you mean, can you please rephrase that. Or type 'hint' at to get more information   
+> **User:**  give me a hint    
+> **Bot:** I can help you with room bookings. You can ask about availability or make a booking.  
+> **User:** no i need to book another room   
+> **Bot:** Hey there, I'm Socrates, your booking assistant for the ITC building. I can help you book available single rooms (C1-C9) or group rooms (G1-G10). How can i help you!    
+> **User:** book a new room     
+> **Bot:** Yeah sure, Can you tell me what your name is?  
+> **User:** erbakan  
+> **Bot:**  Thank you Erbakan Ahmad. When would you like to book the room?  
+> **User:** tomorrow     
+> **Bot:** Okay perfect, so you want a room on tomorrow.  On what time would you like to have it?  
+> **User:** on thursday     
+> **Bot:** Please write the time correctly (e.g., 10:00, 2pm, 14:30).  
+> **User:**  2am
+> **Bot:** Thank you, so which room are you looking for on tomorrow at 2am.
+> **User:** g3     
+> **Bot:** Perfect, so youre looking for g3 on tomorrow at 2am. is that correct?  
+> **User:**  yes    
+> **Bot:**  Your reservation for g3 is complete. A confirmation has been sent to your email.
 
-(TO BE FINISHED LATER)
 
 ### Limitations:
 
