@@ -87,6 +87,8 @@ ConfirmHuman/
    npm install
    npm init -y
    npm install express socket.io cors
+   npm install dotenv
+   npm install @google/generative-ai
    ```
    This will install:
    - Express.js (web server)
