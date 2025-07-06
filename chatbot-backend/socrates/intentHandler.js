@@ -52,8 +52,7 @@ function intentHandler(message, currentState = 'start', context = [0, null, null
 
     // Converts the name into a Title Case
     name = text.split(" ").map(word => {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(" ");
-    // The above method was taken from https://www.geeksforgeeks.org/javascript/convert-string-to-title-case-in-javascript/
-
+    
 
     response = "Thank you " + name + ". When would you like to book the room? ";
     newState = "get_date";

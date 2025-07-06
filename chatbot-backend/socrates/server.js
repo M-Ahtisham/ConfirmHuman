@@ -16,7 +16,7 @@ const io = new Server(server, {
   }
 });
 
-// The above code snippet is taken and modified from https://stackoverflow.com/questions/67848950/setting-up-socket-io-in-an-express-server-error-typeerror-require-listen
+// Above code was explain by the professor but further look up was needed for better understanding.
 
 // Store conversation states per user
 const userStates = new Map();

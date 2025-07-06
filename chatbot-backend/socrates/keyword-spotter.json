@@ -14,7 +14,7 @@
         "Hello, my name is Socrates. I can help you with booking the rooms in the University",
         "Hey there, I'm Socrates. How can i help you!"
       ],
-      "fallback": "I am not sure what you mean, can you please rephrase that. Or type 'hint' at to get more information",
+      "fallback": ["I am not sure what you mean, can you please rephrase that. Or type 'hint' at to get more information"],
       "transitions": {
         "ask_name": [
           "book",
@@ -26,12 +26,6 @@
           "see",
           "what's available",
           "which rooms"
-        ],
-        "room_info": [
-          "describe",
-          "tell me about",
-          "what's in",
-          "facilities"
         ]
       }
     },
@@ -47,7 +41,7 @@
         "Yeah sure, Can you tell me what your name is?",
         "Okay, What is your name?"
       ],
-      "fallback": "Provide your name, don't enter any invalid characters",
+      "fallback": ["Provide your name, don't enter any invalid characters"],
       "transitions": {
         "show_availability": [
           "available",
@@ -120,13 +114,28 @@
       "responses": [
         "Thank you, so which room are you looking for on {date} at {time}?"
       ],
-      "fallback": "Oops, the time provided isn't correct. Try something between 9am to 5pm",
+      "fallback": ["Oops, the time provided isn't correct. Try something between 9am to 5pm"],
       "transitions": {
         "get_room": [
-          "room",
-          "show",
-          "available",
-          "what"
+          "c1",
+          "c2",
+          "c3",
+          "c4",
+          "c5",
+          "c6",
+          "c7",
+          "c8",
+          "c9",
+          "g1",
+          "g2",
+          "g3",
+          "g4",
+          "g5",
+          "g6",
+          "g7",
+          "g8",
+          "g9",
+          "g10"
         ],
         "show_availability": [
           "available",
@@ -164,9 +173,9 @@
       ],
       "hint": "Type a specific room name (like C1, G3) or say 'show available rooms'",
       "responses": [
-        "Here are all the rooms you can pick from: {room_list}."
+        "You selected the room {room} at {date} on {time}, would you like to confirm?"
       ],
-      "fallback": "Please specify a valid room, Single rooms start from C1 - C9, group rooms start from G1 - G10",
+      "fallback": ["Please specify a valid room, Single rooms start from C1 - C9, group rooms start from G1 - G10"],
       "transitions": {
         "show_availability": [
           "available",
@@ -177,6 +186,66 @@
         "back_to_start": [
           "cancel",
           "start over"
+        ],
+        "confirm": [
+          "yes",
+          "confirm",
+          "looks good"
+        ],
+        "deny": [
+          "no",
+          "deny"
+        ]
+      }
+    },
+
+    "confirm": {
+      "keywords": [
+        "yes",
+        "confirm",
+        "looks good"
+      ],
+      "hint": "Would you like to confirm the room?",
+      "responses": ["Congrats, you have booked the room {room} on {date} at {time}"],
+      "transitions": {
+        "back_to_start": [
+          "cancel",
+          "start over"
+        ],
+        "show_availability": [
+          "available",
+          "see",
+          "what's available",
+          "which rooms"
+        ]
+      }
+    },
+    "deny": {
+      "keywords": [
+        "no",
+        "deny"
+      ],
+      "hint": "Would you like to confirm the room?",
+      "responses": ["You have cancelled the booking for room {room} on {date} at {time}"],
+      "transitions": {
+        "get_date": [
+          "today",
+          "tomorrow",
+          "monday",
+          "tuesday",
+          "wednesday",
+          "thursday",
+          "friday"
+        ],
+        "back_to_start": [
+          "cancel",
+          "start over"
+        ],
+        "show_availability": [
+          "available",
+          "see",
+          "what's available",
+          "which rooms"
         ]
       }
     },
@@ -190,21 +259,28 @@
       ],
       "hint": "Say 'show available rooms'",
       "responses": [
-        "Here's a list of available rooms:\n\nSingle Rooms:\n- C1\n- C2\n- C3\n\nGroup Rooms:\n- G1 (with window)\n- G2 (no window)\n- G3 (with window)"
+          "Here's a list of available rooms:\n\nSingle Rooms:\n- C1\n- C2\n- C3\n- C4\n- C5\n- C6\n- C7\n- C8\n- C9\n\nGroup Rooms:\n- G1 (no window)\n- G2 (no window)\n- G3 (no window)\n- G4 (no window)\n- G5 (no window)\n- G6 (no window)\n- G7 (with window)\n- G8 (with window)\n- G9 (with window)\n- G10 (with window)"
       ],
       "fallback": [
         "Try saying 'show available rooms'",
         "Would you like to see available rooms?"
       ],
       "transitions": {
-        "confirm_booking": [
-          "yes",
-          "confirm",
-          "looks good"
-        ]
+        "back_to_start": [
+          "cancel",
+          "start over"
+        ],
+        "ask_name"  : [
+          "book",
+          "reserve",
+          "schedule"
+        ],
+        "default": "start"
       }
     }
   },
+
+  
   "fallbacks": {
     "soft": [
       "I'm not sure I understand. Try saying something like 'book a room' or 'what's available?'",
