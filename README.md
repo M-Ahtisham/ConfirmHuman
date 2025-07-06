@@ -4,17 +4,26 @@
 
 **ConfirmHuman** is a Student and Professor friendly chatbot designed to assist students and staff at TH Deggendorf with university room bookings and availabilities inquiries. The chatbot provides real-time information about room reservations, availability of the rooms.
 
+### ChatBots Developed
+
+#### 1. Socrates
+- This is the solution to the Task 1. It works by detecting the users intent by keyword spotting, and then gives responces based on some hardcoded rules. his ChatBot is found in the `main` branch
+
+
+#### 2. Plato
+- This is the solution to Task 3. It uses Gemini API (Gemini 2.5 Flash-Lite Preview 06-17) which has a limit of 15 queries per minute (for free version). It can understand users intent far better and can also understand text from other language appart from English. This ChatBot is found in the `task-3-chatbot-engine` branch
+
+
 ### Key Features
-- **Room Availability Checking**: Instantly check if specific rooms are available
-- **Schedule Information**: View when rooms will be free or occupied
-- **Real-time Updates**: Get current status of room bookings and usage
+- **Room Booking**: Users can book rooms in the ITC building
+- **Information about the rooms**: User can see which rooms they can book in ITC
 - **Interactive Q&A**: Supports ca. 20+ questions and answers conversation turns
-- **Responsive Design**: Works seamlessly on mobile, tablet, and desktop devices(Jamal you have to verify this)
+- **Responsive Design**: Works seamlessly on mobile, tablet, and desktop devices
 
 ### Use Cases
 - Students looking for available study rooms
 - Staff checking meeting room availability
-- Event organizers seeking suitable venues(as we have differrent clubs at the Uni which organises some events )
+- Event organizers seeking suitable venues (as we have differrent clubs at the Uni which organises some events )
 - General room booking inquiries and assistance (Such as ITC2+)
 
 ## Technology Stack
@@ -22,7 +31,7 @@
 - **Frontend**: React.js with responsive design
 - **Backend**: Node.js with Express.js
 - **Real-time Communication**: Socket.IO and WebSocket protocol
-- **Intent Recognition**: Keyword-spotting algorithm
+- **Intent Recognition**: Keyword-spotting and states to make descision (inspired by finite state automata from first semester)
 - **Styling**: Tailwind CSS and Bootstrap 5
 - **Deployment**: Microsoft Azure Cloud Platform
 
@@ -42,7 +51,7 @@
 -  Aggressive conversation steering through targeted questions
 -  Intent understanding from user utterances
 -  Soft fallback for misunderstood inputs
--  Hard fallback for repeated conversation failures
+-  Hard fallback for repeated conversation failures (after 3 softfallbacks)
 -  Room availability and scheduling task completion
 -  Conversation history memory
 -  20+ Q&A turn capacity
@@ -58,7 +67,7 @@
 -  Node.js backend (version 22.14.0 LTS)
 -  Express.js server implementation
 -  Keyword-spotting intent Handling
--  Extensible architecture for new intents/topics(Such as different types of rooms)
+-  Extensible architecture for new intents/topics(Such as different types of rooms, we can always add more states and more keywords)
 -  Bootstrap 5 integration for modern UI
 
 
@@ -77,16 +86,25 @@ For detailed setup instructions, please refer to [SETUP.md](SETUP.md) file in th
 # Clone the repository
 git clone https://mygit.th-deg.de/aw-student-projects/ain-internet-technologies/ss25/ConfirmHuman.git
 
-# Install dependencies
-cd ConfirmHuman/chatbot-backend && npm install(well this depends upon in which folder it has been saved on diffrent os)
-cd ../chatbot-frontend && npm install
+# Change directory to frontend...
+cd chatbot-frontend
 
-# Run the application
-# Terminal 1: Backend
-cd chatbot-backend && npm start
+# Intall the frontend requirements...
+npm install
+npm run build
 
-# Terminal 2: Frontend  
-cd chatbot-frontend && npm start
+# Now copy the build to backend public folder...
+rm -rf ../chatbot-backend/plato/public/*
+cp -r build/* ../chatbot-backend/plato/public/
+
+# Install the backend dependencies...
+cd ../chatbot-backend/plato
+npm install
+
+# Start backend server...
+node server.js &
+
+# Socrates should now be live and running at: http://localhost:3000/
 ```
 
 ## Chatbot Capabilities
@@ -112,20 +130,20 @@ cd chatbot-frontend && npm start
 
 ```
 ConfirmHuman/ (This is the folder we have in our systems could differ on different os)
-├── chatbot-backend/
-│   └── socrates/
-│       └── intentHandler.js
-├── chatbot-engine/
-│   ├── keyword-spotter.json
-│   └── README.md
-├── chatbot-frontend/
-│   ├── src/
-│   ├── public/
-│   └── package.json
-├── Contributions.xlsx
-├── README.md
-├── SETUP.md
-└── url.txt
+|-- chatbot-backend/
+│   |-- plato/
+│   |-- socrates/
+|-- chatbot-engine/
+│   |-- keyword-spotter.json
+│   |-- README.md
+|-- chatbot-frontend/
+│   |-- src/
+│   |-- public/
+│   |-- package.json
+|-- Contributions.xlsx
+|-- README.md
+|-- SETUP.md
+|-- url.txt
 ```
 
 ## Development Guidelines
@@ -136,9 +154,9 @@ ConfirmHuman/ (This is the folder we have in our systems could differ on differe
 - **Extensibility**: Design for easy addition of new room types and features
 - **Performance**: Optimize for real-time communication (After doing the Bonus Pronlem)
 
-## Live Demo
+## Live Deployed ChatBot
 
-The deployed chatbot on Azure will be accessible at: [URL provided in url.txt] 
+The deployed chatbot on Azure will be accessible [Here]](https://plato-confirm-human.azurewebsites.net/)
 
 ## Course Information
 
@@ -154,16 +172,5 @@ This project is developed as part of academic coursework at Technische Hochschul
 ---
 
 *For technical support or questions regarding this project, please contact any team member out of four listed above.*
-
-
-
-
-
-# student-repo
- 
-This repository was created for you as part of a course project. You are required to use this project for any course work and contact 
-the lecturer in case you encounter any problems with the settings and configuration of the project.
-
-Any code or related work done in other, self-created Gitlab projects is **not considered for grading**.
 
 

@@ -1,4 +1,4 @@
-# ConfirmHuman Setup Guide
+# ConfirmHuman Setup Guide for Plato
 
 ## Overview
 This guide will help you set up and run the chatbot project locally on your Compture. The project consists of a React frontend and a Node.js backend that communicate using Socket.IO.
@@ -16,25 +16,47 @@ Before you start, make sure you have the following installed on your computer:
 
 ## Project Structure
 ```
-chatbot-project/
-├── chatbot-backend/
-│   └── socrates/
-│       └── intentHandler.js
-├── chatbot-engine/
-│   ├── keyword-spotter.json
+ConfirmHuman/
+.
+├── build_app.sh
+├── chatbot-backend
+│   ├── plato
+│   │   ├── package-lock.json
+│   │   ├── package.json
+│   │   ├── prompt.js
+│   │   └── server.js
 │   └── README.md
-├── chatbot-frontend/
-│   ├── src/
-│   ├── public/
+├── chatbot-frontend
+│   ├── Frontend Notes.txt
+│   ├── package-lock.json
 │   ├── package.json
-│   └── other frontend files
+│   ├── postcss.config.js
+│   ├── src
+│   │   ├── App.jsx
+│   │   ├── components
+│   │   │   ├── assets
+│   │   │   │   └── Plato.png
+│   │   │   └── chat
+│   │   │       ├── Background.css
+│   │   │       ├── Background.jsx
+│   │   │       ├── ChatCard.jsx
+│   │   │       ├── ChatContainer.jsx
+│   │   │       ├── MessageBubble.jsx
+│   │   │       ├── MessageList.jsx
+│   │   │       └── TypewriterText.jsx
+│   │   ├── font
+│   │   │   └── Spartacus.ttf
+│   │   ├── index.css
+│   │   ├── index.js
+│   │   └── logo.svg
+│   └── tailwind.config.js
 ├── Contributions.xlsx
 ├── README.md
 ├── SETUP.md
-└── url.txt
+└── url.text
 ```
 
-## Installation Steps
+## Installation and Running Steps
 
 ### Step 1: Clone or Download the Project
 1. If using Git, clone the repository:
@@ -48,11 +70,19 @@ chatbot-project/
    ```
 
 ### Step 2: Install Backend Dependencies
-1. Navigate to the backend folder:
-   ```bash
-   cd chatbot-backend
+
+1. Go to [Google AI Studio](https://aistudio.google.com/app/apikey) to get a Gemini API Key.
+
+2. Create a file named `.env` in the `chatbot-backend/plato` directory and add your API key as follows:
    ```
-2. Install the required packages:
+   GEMINI_API_KEY=your_api_key_here
+   ```
+
+3. Navigate to the backend folder:
+   ```bash
+   cd chatbot-backend/plato
+   ```
+4. Install the required packages:
    ```bash
    npm install
    npm init -y
@@ -81,55 +111,37 @@ chatbot-project/
    - Tailwind CSS (for styling)
    - Other dependencies listed in package.json
 
-## Running the Application
+### Step 4: Build the frontend and move the build into the backend
 
-### Option 1: Run Both Services Manually or Using the script
-
-1. Run this command (make sure to be in the correct directory) :
-    ```bash 
-    chmod +x script.sh
-     ```
-    
-2. Then run the Setup script :
-      ```bash 
-    ./script.sh
-     ``` 
-3. You will see, If something is already running on port 3000
-   Press **Y** when prompted to run or **N** not to run the script
-     
-
-#### Start the Backend Server
-1. Open a terminal window
-2. Navigate to the backend folder:
-   ```bash
-   cd chatbot-backend
-   ```
-3. Start the server:
-   ```bash
-   npm start
-   ```
-4. You should see a message like: "Server running on port 3001"
-5. **Keep this terminal window open**
-
-#### Start the Frontend Application
-1. Open a **new** terminal window
-2. Navigate to the frontend folder:
-   ```bash
-   cd chatbot-frontend
-   ```
-3. Start the React application:
-   ```bash
-   npm start
-   ```
-4. You should see a message like: "Local: http://localhost:3000"
-5. Your web browser should automatically open the chatbot
-
-### Option 2: Run with Development Scripts (we will add this later)
-Some projects include scripts to run both services at once:
+1. From the `chatbot-frontend` directory, build the React app:
 ```bash
-npm run dev
+npm run build
 ```
-(Schau into the package.json for the available scripts)
+
+2. Copy the built frontend files to the backend's public folder. This will overwrite any existing files in that directory:
+
+```bash
+rm -rf ../chatbot-backend/plato/public/*
+cp -r build/* ../chatbot-backend/plato/public/
+```
+
+### Step 5: Start the Application
+
+1. Navigate back to the backend directory:
+
+```bash
+cd ../chatbot-backend/plato
+```
+
+2. Start the backend server:
+```bash
+node server.js &
+```
+3. The & will run the server in the background, allowing you to continue using the terminal. Access the application in your web browser at http://localhost:3000/ or http://localhost:3001/.
+
+
+
+
 
 ## Accessing the Chatbot
 
@@ -138,7 +150,7 @@ npm run dev
 
 ## How to Use the Chatbot
 
-1. The chatbot interface will load in your browser
+1. The chatbot interface will load in your browser (Please don't use Safari, somethings wont render)
 2. You'll see a chat window with an input field at the bottom
 3. Type your message and press Enter or click Send
 4. The chatbot will respond based on its programmed topic and intents
@@ -151,7 +163,7 @@ npm run dev
 
 **Port Already in Use**
 - Error: "Port 3000 is already in use"
-- Solution: Either close the other application using that port, or change the port in the configuration
+- Solution: Either close the other application using that port, or restart yout device
 
 **Dependencies Not Installing**
 - Error: npm install fails
@@ -213,7 +225,7 @@ npm run dev
 ## Need Help?
 
 1. Check the browser console (F12) for frontend errors
-2. Check the backend terminal for server errors
+5. Confirm your Node.js version is compatible as mentioned at the top.
 3. Verify all dependencies are installed correctly
 4. Make sure both frontend and backend are running
 5. Confirm your Node.js version is compatible as mentioned ata the Top.
