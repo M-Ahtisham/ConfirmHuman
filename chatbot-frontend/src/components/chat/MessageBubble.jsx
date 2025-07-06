@@ -1,6 +1,6 @@
 import React from 'react';
 import { VscAccount } from "react-icons/vsc";
-import botIcon from '../assets/Platon.png'; // https://commons.wikimedia.org/wiki/File:Platon.png
+import botIcon from '../assets/Plato.png'; // https://commons.wikimedia.org/wiki/File:Platon.png
 import TypewriterText from './TypewriterText';
 
 export default function MessageBubble({ from, type, text }) {
@@ -8,13 +8,13 @@ export default function MessageBubble({ from, type, text }) {
 
   const bubbleStyles = {
     user: {
-      // change number inside [] for bubble colour
+      // change number inside [] for message bubble colour
       bg: 'bg-[#7FF0F0]',
       text: 'text-gray-800',
       icon: <VscAccount className="h-10 w-10" />,
     },
     bot: {
-      // change number inside [] for bubble colour
+      // change number inside [] for message bubble colour
       bg: 'bg-[#e6b8ff]',
       text: 'text-gray-800',
       icon: <img src={botIcon} alt="Bot" className="h-11 w-11 object-contain" />,
