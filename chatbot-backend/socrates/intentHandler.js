@@ -32,7 +32,7 @@ function intentHandler(message, currentState = 'start', context = [0, null, null
   // 1. HINT 
   // First thiing is to check if user is asking for a hint
   if (text.includes('hint')) {
-    response = currentStateData.hint || "# FALLBACK!!! HINT NOT FOUND! (Fix this ASAP)# I can help you with room bookings. You can ask about availability or make a booking.";
+    response = currentStateData.hint || "I can help you with room bookings. You can ask about availability or make a booking.";
     return {
       response,
       newState: currentState,
@@ -44,15 +44,25 @@ function intentHandler(message, currentState = 'start', context = [0, null, null
 
 
 
-
   // Specific state handling
 
   // For GET_NAME state
   if (currentState == "ask_name") {
 
+    for (const keyword of currentStateData.keywords || ['my name is ', 'name is', 'i am called ']) {
+      if (text.startsWith(keyword)) {
+        // Remove the keyword from the start of the text
+        name = text.slice(keyword.length).trim();
+        break;
+      }
+    }
+    if (!name) {
+      name = text;
+    }
+
     // Converts the name into a Title Case
-    name = text.split(" ").map(word => {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(" ");
-    
+    name = name.split(" ").map(word => {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();}).join(" ");
+
 
     response = "Thank you " + name + ". When would you like to book the room? ";
     newState = "get_date";
@@ -84,10 +94,15 @@ function intentHandler(message, currentState = 'start', context = [0, null, null
   // For GET_TIME state
   if (currentState == "get_time") {
 
-    time = text;
-
-    response = "Thank you, so which room are you look for on " + date + " at " + time + "." ;
-    newState = "get_room";
+    // Basic time validation: check if input contains numbers and optionally am/pm
+    if (/\d/.test(text)) {
+      time = text.trim();
+      response = "Thank you, so which room are you looking for on " + date + " at " + time + ".";
+      newState = "get_room";
+    } else {
+      response = "Please write the time correctly (e.g., 10:00, 2pm, 14:30).";
+      newState = "get_time";
+    }
     
     return {
       response,
@@ -102,7 +117,7 @@ function intentHandler(message, currentState = 'start', context = [0, null, null
     room = text;
 
     response = "Perfect, so youre looking for " + room + " on " + date + " at " + time + ". is that correct?";
-    newState = "check_availability";
+    newState = "confirm_booking";
     
     return {
       response,
@@ -176,7 +191,19 @@ function intentHandler(message, currentState = 'start', context = [0, null, null
     } 
   }
 
-
+  // Replace placeholders in the response with actual values
+  if (response.includes("{name}")) {
+    response = response.replace(/{name}/gi, name ? name : "");
+  }
+  if (response.includes("{date}")) {
+    response = response.replace(/{date}/gi, date ? date : "");
+  }
+  if (response.includes("{time}")) {
+    response = response.replace(/{time}/gi, time ? time : "");
+  }
+  if (response.includes("{room}")) {
+    response = response.replace(/{room}/gi, room ? room : "");
+  }
 
 
   return {
