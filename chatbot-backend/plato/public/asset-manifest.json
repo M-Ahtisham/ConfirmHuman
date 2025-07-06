@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/static/css/main.0fe76c33.css",
+    "main.js": "/static/js/main.564d45d9.js",
+    "static/media/Plato.png": "/static/media/Plato.1ae8c8fb2ad5d4690f8a.png",
+    "static/media/Spartacus.ttf": "/static/media/Spartacus.75f046276174e022f966.ttf",
+    "index.html": "/index.html",
+    "main.0fe76c33.css.map": "/static/css/main.0fe76c33.css.map",
+    "main.564d45d9.js.map": "/static/js/main.564d45d9.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0fe76c33.css",
+    "static/js/main.564d45d9.js"
+  ]
+}
