@@ -22,7 +22,6 @@
 
 ### Use Cases
 - Students looking for available study rooms
-- Staff checking meeting room availability
 - Event organizers seeking suitable venues (as we have differrent clubs at the Uni which organises some events )
 - General room booking inquiries and assistance (Such as ITC2+)
 
@@ -34,6 +33,7 @@
 - **Intent Recognition**: Keyword-spotting and states to make descision (inspired by finite state automata from first semester)
 - **Styling**: Tailwind CSS and Bootstrap 5
 - **Deployment**: Microsoft Azure Cloud Platform
+- **API** (Gemini 2.5 Flash-Lite Preview 06-17)
 
 ## Team Members
 
