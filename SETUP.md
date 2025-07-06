@@ -53,7 +53,7 @@ ConfirmHuman/
 ├── Contributions.xlsx
 ├── README.md
 ├── SETUP.md
-└── url.text
+└── url.txt
 ```
 
 ## Installation and Running Steps
