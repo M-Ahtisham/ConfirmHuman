@@ -13,3 +13,6 @@ Background Bootsnipp:
 https://bootsnipp.com/snippets/7nBnW
 
 anything external 3rd party engine the api key
+
+az webapp up --name Test-Plato-Confirm-Human --resource-group jamal.dassrath_rg_8082
+https://test-plato-confirm-human.azurewebsites.net/

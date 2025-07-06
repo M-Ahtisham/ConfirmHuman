@@ -19,7 +19,7 @@ const ai = new GoogleGenAI({
 
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:3000',   // Frontend runs on port 3000
+    origin: 'http://localhost:3000',   // Frontend runs on port 3000 , local testing only
     methods: ['GET', 'POST'],
   }
 });
