@@ -11,5 +11,3 @@ for background to work : npm install bootstrap
 
 Background Bootsnipp:
 https://bootsnipp.com/snippets/7nBnW
-
-anything external 3rd party engine the api key
