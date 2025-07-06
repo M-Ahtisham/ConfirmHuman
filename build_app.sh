@@ -11,7 +11,7 @@
 
 echo "Building frontend..."
 cd chatbot-frontend
-echo "Installing the backend requirements..."
+echo "Installing the frontend requirements..."
 npm install
 npm run build
 
@@ -28,6 +28,3 @@ node server.js &
 
 sleep 4
 echo "Socrates is now live and runnig at: http://localhost:3000/"
-
-
-

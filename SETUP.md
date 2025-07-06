@@ -1,7 +1,11 @@
+[Back to README](README.md)
+
 # ConfirmHuman Setup Guide
 
 ## Overview
-This guide will help you set up and run the chatbot project locally on your Compture. The project consists of a React frontend and a Node.js backend that communicate using Socket.IO.
+- This guide will help you set up and run the chatbot project locally on your Compture. The project consists of a React frontend and a Node.js backend that communicate using Socket.IO.
+
+- The commands listed here are mostly for Linux/MacOS Terminal. If you neeed to execute them in Windows use the git/bash shell or WSL.
 
 ## Prerequisites
 Before you start, make sure you have the following installed on your computer:
@@ -11,27 +15,76 @@ Before you start, make sure you have the following installed on your computer:
   - Check if installed: Open terminal/command prompt and type `node --version`
 - **Git** (for version control)
   - Download from: https://git-scm.com/
+  - On Windows run `winget install --id Git.Git -e --source winget`
 - **Web browser** (Chrome, Firefox, Safari, or Edge)
 - **Text editor** (VS Code recommended(as we four has worked using that on our respective systems))
 
 ## Project Structure
+
+[comment]: <> (This structure was made by running the tree command)
 ```
-chatbot-project/
-├── chatbot-backend/
-│   └── socrates/
-│       └── intentHandler.js
-├── chatbot-engine/
-│   ├── keyword-spotter.json
-│   └── README.md
-├── chatbot-frontend/
-│   ├── src/
-│   ├── public/
-│   ├── package.json
-│   └── other frontend files
-├── Contributions.xlsx
-├── README.md
-├── SETUP.md
-└── url.txt
+.
+|-- build_app.sh
+|-- chatbot-backend
+│   |-- package.json
+│   |-- README.md
+│   |-- socrates
+│       |-- intentHandler.js
+│       |-- keyword-spotter.json
+│       |-- package.json
+│       |-- public
+│       │   |-- index.html
+│       │   |-- static
+│       │   │   |-- css
+│       │   │   │   |-- main.css
+│       │   │   |-- js
+│       │   │   │   |-- main.js
+│       │   │   |-- media
+│       │   │       |-- Deus_Socrates.png
+│       │   │       |-- Spartacus.ttf
+│       |-- rooms.json
+│       |-- rules.json
+│       |-- server.js
+|-- chatbot-frontend
+│   |-- build
+│   │   |-- index.html
+│   │   |-- static
+│   │       |-- css
+│   │       │   |-- main.css
+│   │       |-- js
+│   │       │   |-- main.js
+│   │       |-- media
+│   │           |-- Deus_Socrates.png
+│   │           |-- Spartacus.ttf
+│   |-- package.json
+│   |-- postcss.config.js
+│   |-- public
+│   │   |-- index.html
+│   |-- src
+│   │   |-- App.jsx
+│   │   |-- components
+│   │   │   |-- assets
+│   │   │   │   |-- Deus_Socrates.png
+│   │   │   |-- chat
+│   │   │       |-- Background.css
+│   │   │       |-- Background.jsx
+│   │   │       |-- ChatCard.jsx
+│   │   │       |-- ChatContainer.jsx
+│   │   │       |-- MessageBubble.jsx
+│   │   │       |-- MessageList.jsx
+│   │   │       |-- TypewriterText.jsx
+│   │   |-- font
+│   │   │   |-- Spartacus.ttf
+│   │   |-- index.css
+│   │   |-- index.js
+│   │   |-- logo.svg
+│   |-- tailwind.config.js
+|-- Contributions.xlsx
+|-- README.md
+|-- script.sh
+|-- SETUP.md
+|-- url.text
+
 ```
 
 ## Installation Steps
@@ -50,7 +103,7 @@ chatbot-project/
 ### Step 2: Install Backend Dependencies
 1. Navigate to the backend folder:
    ```bash
-   cd chatbot-backend
+   cd chatbot-backend/socrates
    ```
 2. Install the required packages:
    ```bash
@@ -97,41 +150,33 @@ chatbot-project/
 3. You will see, If something is already running on port 3000
    Press **Y** when prompted to run or **N** not to run the script
      
+### Option 2: Build the Frontednd and them copy the build to the Backend
 
-#### Start the Backend Server
-1. Open a terminal window
-2. Navigate to the backend folder:
-   ```bash
-   cd chatbot-backend
-   ```
-3. Start the server:
-   ```bash
-   npm start
-   ```
-4. You should see a message like: "Server running on port 3001"
-5. **Keep this terminal window open**
+1. Run this command in the root directory of ConfirmHuman :
+    ```bash 
+    chmod +x build_app.sh
+     ```
+    
+2. Then run the Setup script :
+      ```bash 
+    ./build_app.sh
+     ``` 
+3. The app should be built and start running, if something is already running on port 3000, kill the process that is using that port (probably Node.js) or restart  your computer
+     
+### Option 3: On Windows you can proceed as follows
 
-#### Start the Frontend Application
-1. Open a **new** terminal window
-2. Navigate to the frontend folder:
-   ```bash
-   cd chatbot-frontend
-   ```
-3. Start the React application:
-   ```bash
-   npm start
-   ```
-4. You should see a message like: "Local: http://localhost:3000"
-5. Your web browser should automatically open the chatbot
 
-### Option 2: Run with Development Scripts (we will add this later)
-Some projects include scripts to run both services at once:
-```bash
-npm run dev
-```
-(Schau into the package.json for the available scripts)
 
-## Accessing the Chatbot
+
+
+
+
+
+
+
+
+
+## Accessing the ChatBot
 
 1. **Local Access**: Open your web browser and go to `http://localhost:3000`
 2. **Network Access**: Other devices on your network can access it using your computer's IP address (e.g., `http://192.168.1.100:3000`)
@@ -151,7 +196,7 @@ npm run dev
 
 **Port Already in Use**
 - Error: "Port 3000 is already in use"
-- Solution: Either close the other application using that port, or change the port in the configuration
+- Solution: Either close the other application using that port, or restart your computer
 
 **Dependencies Not Installing**
 - Error: npm install fails
