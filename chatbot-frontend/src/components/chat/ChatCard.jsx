@@ -6,7 +6,7 @@ const socket = io(""); // forr deployment as professor said
 
 export default function ChatCard() {
   const [messages, setMessages] = useState([
-    { from: 'bot', type: 'text', text: 'Hi I am Socrates! How can I help you today?' },
+    { from: 'bot', type: 'text', text: 'Hi there, I am Socrates, Your ITC room booking assistant. How can I help you today?' },
   ]);
   const [input, setInput] = useState('');
 

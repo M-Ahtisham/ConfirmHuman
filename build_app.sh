@@ -28,3 +28,5 @@ node server.js &
 
 sleep 4
 echo "Socrates is now live and runnig at: http://localhost:3000/"
+echo "If it didn't work, run this in Linux/MacOS  Terminal 'lsof -i tcp:3000' then 'kill -9 <PID>'"
+echo "Or on Windows run 'npx kill-port 3000' in the Command Prompt"
