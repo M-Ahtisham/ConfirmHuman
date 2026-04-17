@@ -44,7 +44,7 @@ io.on('connection', (socket) => {
     userState.context.push({type: 'user', text: msg});
 
     const data = await ai.models.generateContent({
-      model: "gemini-2.5-flash-lite-preview-06-17",
+      model: "gemini-3.1-flash-lite-preview",
       contents: `${prompt} \n The history of the conversation is: ${JSON.stringify(userState.context)} \n Now my query is: ${msg}`,
     });
 
